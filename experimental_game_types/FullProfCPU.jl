@@ -11,15 +11,15 @@ struct SymGame_CPU <: SymmetricGame
     num_actions::UInt
     config_table::Array{UInt64,2}
     payoff_table::Array{Float64,2}
-    repeat_table::Array{UInt64,1}
+    repeat_table::Array{UInt64,2}
 end
 
 function SymGame_CPU(num_players, num_actions, payoff_generator)
-    num_configs = multinomial(num_players-1, num_actions-1)
+    num_configs = multinomial(num_players, num_actions-1)
     config_table = zeros(UInt64, num_configs, num_actions)
     payoff_table = Array{Float64}(undef, num_configs, num_actions)
     repeat_table = Array{SafeUInt64}(undef, num_configs)
-    for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
+    for (c,config) in enumerate(CwR(1:num_actions, num_players))
         for p in 1:num_players-1
             config_table[c,config[p]] += 1
         end

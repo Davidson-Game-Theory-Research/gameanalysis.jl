@@ -2,15 +2,8 @@
 import Combinatorics: with_replacement_combinations, multinomial
 const CwR = with_replacement_combinations
 
-import CUDA
-CUDA.allowscalar(false)
 
-include("LogMultinomial.jl")
-using .LogMultinomial
-
-include("AbstractGames.jl")
-
-struct LogSymGame_GPU <: SymmetricGame
+struct LogSymGame_GPU# <: SymmetricGame
     num_players::UInt
     num_actions::UInt
     config_table::CUDA.CuArray{Float32,2}
@@ -33,6 +26,11 @@ function LogSymGame_GPU(num_players, num_actions, payoff_generator)
     LogSymGame_GPU(num_players, num_actions, CUDA.cu(config_table),
                    CUDA.cu(payoff_table), CUDA.cu(repeat_table))
 end
+
+# function LogSymGame_GPU(g::SymGame_CPU)
+#     LogSymGame_GPU(g.num_players, g.num_actions, CUDA.cu(float(g.config_table)),
+#                 CUDA.cu(g.payoff_table), CUDA.cu(log.(g.repeat_table)))
+# end
 
 function deviation_payoffs(game::LogSymGame_GPU, mixed_profile)
     log_prof = CUDA.cu(log.(mixed_profile .+ 1f-40))

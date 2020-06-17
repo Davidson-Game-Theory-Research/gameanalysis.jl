@@ -30,7 +30,12 @@ function SymGame_GPU(num_players, num_actions, payoff_generator)
                 CUDA.cu(payoff_table), CUDA.cu(repeat_table))
 end
 
+function SymGame_GPU(g::SymGame_CPU)
+    SymGame_GPU(g.num_players, g.num_actions, CUDA.cu(float(g.config_table)),
+                CUDA.cu(g.payoff_table), CUDA.cu(float(g.repeat_table)))
+end
+
 function deviation_payoffs(game::SymGame_GPU, mixed_profile)
     prof_probs = prod(CUDA.cu(mixed_profile).^game.config_table, dims=2).*game.repeat_table
-    sum(game.payoff_table.*prof_probs, dims=1)
+    Array(sum(game.payoff_table.*prof_probs, dims=1))
 end

@@ -3,22 +3,18 @@ import Combinatorics: with_replacement_combinations, multinomial
 
 const CwR = with_replacement_combinations
 
-include("AbstractGames.jl")
-include("LogMultinomial.jl")
-using .LogMultinomial
-
 
 struct LogSymGame_CPU <: SymmetricGame
     num_players::UInt
     num_actions::UInt
-    config_table::Array{UInt,2}
+    config_table::Array{UInt64,2}
     payoff_table::Array{Float64,2}
     repeat_table::Array{Float64,1}
 end
 
 function LogSymGame_CPU(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = zeros(UInt, num_configs, num_actions)
+    config_table = zeros(UInt64, num_configs, num_actions)
     payoff_table = Array{Float64}(undef, num_configs, num_actions)
     repeat_table = Array{Float64}(undef, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
@@ -29,6 +25,11 @@ function LogSymGame_CPU(num_players, num_actions, payoff_generator)
         payoff_table[c,:] = payoff_generator(config_table[c,:])
     end
     LogSymGame_CPU(num_players, num_actions, config_table, payoff_table, repeat_table)
+end
+
+function LogSymGame_CPU(g::SymGame_CPU)
+    LogSymGame_CPU(g.num_players, g.num_actions, g.config_table,
+                g.payoff_table, log.(g.repeat_table))
 end
 
 function deviation_payoffs(game::LogSymGame_CPU, mixed_profile)

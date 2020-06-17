@@ -1,5 +1,5 @@
 import LinearAlgebra: dot
-import Distributions: Normal
+import Distributions: Normal, Dirichlet
 
 
 abstract type Game end
@@ -7,14 +7,17 @@ abstract type SymmetricGame <: Game end
 abstract type RoleSymmetricGame <: Game end
 
 
-function random_game(game_type, players, actions, distribution=Normal(0,1))
-    payoff_generator = config -> rand(distribution, size(config))
-    game_type(players, actions, payoff_generator)
+function uniform_mixture(game::SymmetricGame)
+    ones(game.num_actions) / game.num_actions
 end
 
-
-function uniform_mixture(game::SymmetricGame)
-    ones(1, game.num_actions) / game.num_actions
+function random_mixtures(game::SymmetricGame, num_mixtures, α=1)
+    if typeof(α) <: Array
+        distr = Dirichlet(α)
+    else
+        distr = Dirichlet(game.num_actions, α)
+    end
+    rand(distr, num_mixtures)
 end
 
 function minimum_payoff(game::SymmetricGame)
