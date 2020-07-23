@@ -4,7 +4,7 @@ using TensorCast
 
 const CwR = with_replacement_combinations
 const MINIMUM_PROBABILITY = 1e-40
-const MAXIMUM_PAYOFF = 1e10
+const MAXIMUM_PAYOFF = 1.0
 const MINIMUM_PAYOFF = 1e-10
 
 struct RepWeightGame_GPU <: SymmetricGame
@@ -36,28 +36,17 @@ function RepWeightGame_GPU(num_players, num_actions, payoff_generator)
                       CUDA.cu(weighted_payoffs), offset, 1.0/scale)
 end
 
-# function RepWeightGame_GPU(g::SymGame_CPU)
-#     RepWeightGame_GPU(g.num_players, g.num_actions, CUDA.cu(g.config_table),
-#                       CUDA.cu(log.(g.payoff_table) .+ log.(g.repeat_table)))
-# end
-
+#de-normalized
 function deviation_payoffs(game::RepWeightGame_GPU, mixed_profile)
-    log_probs = CUDA.cu(log.(mixed_profile .+ 1f-40)).*game.config_table
+    log_probs = CUDA.cu(log.(mixed_profile .+ MINIMUM_PROBABILITY)).*game.config_table
     dev_pays = Array(sum(exp.(game.payoff_table.+sum(log_probs, dims=2)), dims=1))
     ((dev_pays .- MINIMUM_PAYOFF) .* game.scale) .+ game.offset
 end
 
-# function many_deviation_payoffs(game::RepWeightGame_GPU, mixtures::Array{Float64,2})
-#     mixtures = CUDA.cu(log.(mixtures .+ MINIMUM_PROBABILITY))
-#     @reduce log_probs[prof,mix] := sum(act) game.config_table[prof,act] * mixtures[mix,act]
-#     @reduce dev_pays[mix,act] := sum(prof) exp(game.payoff_table[prof,act] + log_probs[prof,mix])
-#     ((dev_pays .- MINIMUM_PAYOFF) .* game.scale) .+ game.offset
-# end
-
-function many_deviation_payoffs(game::RepWeightGame_GPU, mixtures::Array{Float64,2})
+#still normalized
+function many_deviation_payoffs(game::RepWeightGame_GPU, mixtures)
     mixtures = CUDA.cu(log.(mixtures .+ MINIMUM_PROBABILITY))
     @reduce log_probs[prof,mix] := sum(act) game.config_table[prof,act] * mixtures[mix,act]
     @cast dev_pays[prof,mix,act] := exp(game.payoff_table[prof,act] + log_probs[prof,mix])
-    # reshape((sum(dev_pays, dims=1) .- MINIMUM_PAYOFF) .* game.scale .+ game.offset, size(mixtures))
     reshape(sum(dev_pays, dims=1), size(mixtures))
 end
