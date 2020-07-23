@@ -59,6 +59,26 @@ function deviation_jacobian(game::RepWeightGame_CPU, mixed_profile)
     @reduce dj[a,s] := sum(p) exp(game.payoff_table[p,a] + log_probs[p]) * deriv_configs[p,s]
 end
 
+function many_deviation_jacobians(game::RepWeightGame_CPU, mixed_profiles::Array{Float64,2})
+    mixed_profiles = mixed_profiles .+ MINIMUM_PROBABILITY
+    log_mixed_profiles = log.(mixed_profiles)
+    @reduce log_probs[mix,prof] := sum(act) log_mixed_profiles[mix,act] * game.config_table[prof,act]
+    @cast deriv_configs[mix,prof,act] := game.config_table[prof,act] ./ mixed_profiles[mix,act]
+    @reduce dj[mix,act,strat] := sum(prof) exp(game.payoff_table[prof,act] + log_probs[mix,prof]) * deriv_configs[mix,prof,strat]
+end
+
+function many_gain_gradients(game::RepWeightGame_CPU, mixtures::Array{Float64,2})
+    dev_pays = many_deviation_payoffs(game, mixtures)
+    @reduce mixture_expectations[mix] := sum(strat) mixtures[mix,strat] * dev_pays[mix,strat]
+    dev_jac = many_deviation_jacobians(game, mixtures)
+    @reduce util_grads[mix,strat] := sum(act) mixtures[mix,act] * dev_jac[mix,act,strat]
+    util_grads .+= dev_pays
+    @cast gain_jac[mix,act,strat] := dev_jac[mix,act,strat] - util_grads[mix,strat]
+    to_zero = dev_pays .< mixture_expectations
+    gain_jac[repeat(to_zero, 1,1,game.num_actions)] .= 0
+    @reduce total_gain_grads[mix,strat] := sum(act) gain_jac[mix,act,strat]
+end
+
 function gain_gradient(game::RepWeightGame_CPU, mixed_profile)
     mp = mixed_profile[1,:] # MAKE PROFILES VECTORS!!!!!!!!!!!!!!!!!!
     dev_pays = deviation_payoffs(game, mixed_profile)[1,:]
