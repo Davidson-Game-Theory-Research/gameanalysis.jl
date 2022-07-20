@@ -1,2 +1,5 @@
 *.ipynb
 *.png
+old_code
+old_data
+.*

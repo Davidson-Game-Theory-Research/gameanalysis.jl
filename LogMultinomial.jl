@@ -11,11 +11,7 @@ of distinct permutations in a multiset of $k$ distinct elements of multiplicity
 $n_i$ $(1 \le i \le k)$ is $(n_1, \ldots, n_k)!$.
 =#
 
-module LogMultinomial
-
-export logmultinomial
-
-import SpecialFunctions: loggamma
+using SpecialFunctions: loggamma
 
 function logmultinomial(multiset...)
     numerator = 0
@@ -25,6 +21,4 @@ function logmultinomial(multiset...)
         denominator += loggamma(multiplicity + 1)
     end
     return loggamma(numerator + 1) - denominator
-end
-
 end
