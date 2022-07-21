@@ -1,3 +1,7 @@
+using Distributions: Dirichlet
+using Combinatorics: multinomial, with_replacement_combinations as CwR
+using StatsBase: counts
+
 include("LogMultinomial.jl")
 
 function uniform_mixture(num_actions::Integer)

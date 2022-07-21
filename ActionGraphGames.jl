@@ -37,7 +37,7 @@ end
 function deviation_payoffs(game::SymBAGG, mixtures::Matrix)
     dev_pays = Array{Float64,2}(undef, size(mixtures)...)
     for m in 1:size(mixtures,2)
-        dev_pays[:,m] .= deviation_payoffs(g, mixtures[:,m])
+        dev_pays[:,m] .= deviation_payoffs(game, mixtures[:,m])
     end
     return dev_pays
 end
