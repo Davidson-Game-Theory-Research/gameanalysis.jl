@@ -6,7 +6,8 @@ using TensorCast
 
 abstract type Game end
 abstract type SymmetricGame <: Game end
-abstract type IterativeGame <: SymmetricGame end
+abstract type FullProfGame <: SymmetricGame end
+abstract type IterativeGame <: FullProfGame end
 
 
 function denormalize(game::SymmetricGame, payoffs::AbstractVecOrMat)
@@ -39,6 +40,14 @@ function num_payoffs(num_players::AbstractVector, num_actions::AbstractVector; d
     else
         return exp(s) * sum(num_actions)
     end
+end
+
+function deviation_payoffs(game::SymmetricGame, mixtures::AbstractMatrix)
+    dev_pays = Matrix{Float64}(undef, size(mixtures)...)
+    for m in 1:size(mixtures,2)
+        dev_pays[:,m] .= deviation_payoffs(game, mixtures[:,m])
+    end
+    return dev_pays
 end
 
 function gain_gradients(game::SymmetricGame, mixture::AbstractVector)

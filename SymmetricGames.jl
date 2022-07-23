@@ -50,7 +50,7 @@ function PayoffDict(num_players, num_actions, payoff_generator)
     PayoffDict(num_players, num_actions, payoff_table, offset, scale)
 end
 
-function deviation_payoff(game::PayoffDict, mixture::Vector, action::Integer)
+function deviation_payoff(game::PayoffDict, mixture::AbstractVector, action::Integer)
     payoff = 0
     for (prof,pays) in game.payoff_table
         if prof[action] > 0
@@ -64,7 +64,7 @@ function deviation_payoff(game::PayoffDict, mixture::Vector, action::Integer)
     return payoff
 end
 
-function deviation_payoffs(game::IterativeGame, mixture::Vector)
+function deviation_payoffs(game::IterativeGame, mixture::AbstractVector)
     return [deviation_payoff(game, mixture, a) for a in 1:game.num_actions]
 end
 
@@ -98,7 +98,7 @@ function PayoffArrays(num_players, num_actions, payoff_generator)
     PayoffArrays(num_players, num_actions, config_table, payoff_table, offset, scale)
 end
 
-function deviation_payoff(game::PayoffArrays, mixture::Vector, action::Integer)
+function deviation_payoff(game::PayoffArrays, mixture::AbstractVector, action::Integer)
     payoff = 0
     dev_configs = copy(game.config_table)
     nonzero = dev_configs[:,action] .> 0
@@ -151,7 +151,7 @@ function RepeatsTable(num_players, num_actions, payoff_generator)
     RepeatsTable(num_players, num_actions, config_table, payoff_table, repeat_table, offset, scale)
 end
 
-function deviation_payoffs(game::RepeatsTable, mixture::Vector)
+function deviation_payoffs(game::RepeatsTable, mixture::AbstractVector)
     mixture = mixture .+ eps(0.0f0)
     @reduce config_probs[c] := prod(a) mixture[a] ^ (game.config_table[c,a])
     @cast weights[c,a] := config_probs[c] * game.repeat_table[c,a] / mixture[a]
@@ -187,7 +187,7 @@ function DeviationProfiles(num_players, num_actions, payoff_generator)
     DeviationProfiles(num_players, num_actions, config_table, payoff_table, repeat_table, offset, scale)
 end
 
-function deviation_payoffs(game::DeviationProfiles, mixture::Vector)
+function deviation_payoffs(game::DeviationProfiles, mixture::AbstractVector)
     @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[c,a]
     @reduce dev_pays[a] := sum(c) game.payoff_table[c,a] * config_probs[c] * game.repeat_table[c]
     return dev_pays
@@ -219,7 +219,7 @@ function WeightedPayoffs(num_players, num_actions, payoff_generator)
     WeightedPayoffs(num_players, num_actions, config_table, payoff_table, offset, scale)
 end
 
-function deviation_payoffs(game::WeightedPayoffs, mixture::Vector)
+function deviation_payoffs(game::WeightedPayoffs, mixture::AbstractVector)
     @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[c,a]
     @reduce dev_pays[a] := sum(c) game.payoff_table[c,a] * config_probs[c]
     return dev_pays

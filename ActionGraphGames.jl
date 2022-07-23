@@ -42,7 +42,24 @@ function deviation_payoffs(game::SymBAGG, mixtures::Matrix)
     return dev_pays
 end
 
+const full_prof_game_types = [PayoffDict, PayoffArrays, RepeatsTable]
+
 function to_sym_game(game::SymBAGG, type)
-    payoff_generator = prof -> pure_payoffs(game, prof)
-    type(game.num_players, game.num_actions, payoff_generator)
+    if type in full_prof_game_types
+        function payoff_generator(prof)
+            payoffs = zeros(size(prof)...)
+            for a in 1:game.num_actions
+                if prof[a] > 0
+                    prof[a] -= 1
+                    payoffs[a] = pure_payoffs(game, prof)[a]
+                    prof[a] += 1
+                end
+            end
+            return payoffs
+        end
+        return type(game.num_players, game.num_actions, payoff_generator)
+    else
+        payoff_generator = prof -> pure_payoffs(game, prof)
+        return type(game.num_players, game.num_actions, payoff_generator)
+    end
 end

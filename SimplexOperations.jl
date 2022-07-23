@@ -38,6 +38,22 @@ function mixture_grid(corners::AbstractMatrix, points_per_dim::Integer)
     return corners * grid
 end
 
+# identifies the largest mixture_grid with at most max_mixtures elements
+function finest_grid(num_actions::Integer, max_mixtures::Integer)
+    points_per_dim = 2
+    num_mixtures = num_actions
+    for p in 3:max_mixtures
+        m = multinomial(num_actions-1, p-1)
+        if m > max_mixtures
+            break
+        else
+            num_mixtures = m
+            points_per_dim = p
+        end
+    end
+    return (points_per_dim, num_mixtures)
+end
+
 # creates a grid of equally spaced points surrounding a given midpoint
 function grid_around(midpoint::AbstractVector, scale::AbstractFloat, points_per_dim::Integer)
     num_actions = size(midpoint,1)

@@ -1,20 +1,22 @@
 using ThreadsX
 
-include("largest_error_experiment.jl")
+include("dev_pays_timing_experiment.jl")
 
-const OUTFILE = "LogProbabilities_errors.csv"
+const OUTFILE = "data/PayoffArrays_timing.csv"
 const SETUP_FUNCTION = parameter_setup
 const SETUP_CONFIG = Dict(
     :outfile_name=>OUTFILE,
     :min_players=>2,
-    :max_players=>512,
-    :min_strats=>2,
-    :max_strats=>20
+    :max_players=>128,
+    :min_actions=>3,
+    :max_actions=>6,
+    :batch_sizes=>[1, 10, 100]
 )
-const EXPERIMENT_FUNCTION = expected_error
+const EXPERIMENT_FUNCTION = dev_pays_timing
 const EXPERIMENT_CONFIG = Dict(
-    :game_type=>LogProbabilities,
-    :game_bits=>64,
+    :game_type=>PayoffArrays,
+    :num_mixtures=>1000,
+    :memory_available=>2^30,
     :outfile_name=>OUTFILE,
     :outfile_lock=>ReentrantLock()
 )

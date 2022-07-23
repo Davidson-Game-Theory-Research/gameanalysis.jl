@@ -39,30 +39,20 @@ function expected_error(players, strategies; game_type, game_bits, outfile_name,
         fill!(error_quantiles, NaN)
     else
         errors = Vector{Float64}()
-        mixtures_per_call = floor(Int, MAX_SIZE / game_size)
-        num_points = 2
-        grid_size = strategies
-        for np = 3:NUM_MIXTURES
-            gs = multinomial(strategies-1, np-1)
-            if gs > NUM_MIXTURES
-                break
-            else
-                num_points = np
-                grid_size = gs
-            end
-        end
+        batch_size = floor(Int, MAX_SIZE / game_size)
         mixtures = Matrix{Float64}(undef, strategies, NUM_MIXTURES)
-        mixtures[:,1:grid_size] .= mixture_grid(strategies, num_points)
-        if NUM_MIXTURES > grid_size
-            mixtures[:,grid_size+1:end] .= random_mixtures(strategies, NUM_MIXTURES - grid_size)
+        grid_points, grid_size = finest_grid(actions, NUM_MIXTURES)
+        mixtures[:,1:grid_size] = mixture_grid(actions, grid_points)
+        if grid_size < num_mixtures
+            mixtures[:,grid_size+1:end] = random_mixtures(actions, num_mixtures - grid_size)
         end
         for g in 1:NUM_GAMES
             agg = additive_sin_game(players, strategies, NUM_FUNCTIONS)
             sg = to_sym_game(agg, game_type)
             correct_dev_pays = deviation_payoffs(agg, mixtures)
             range = maximum(correct_dev_pays) - minimum(correct_dev_pays)
-            for start_index in 1:mixtures_per_call:NUM_MIXTURES
-                end_index = min(start_index + mixtures_per_call, NUM_MIXTURES)
+            for start_index in 1:batch_size:NUM_MIXTURES
+                end_index = min(start_index + batch_size - 1, NUM_MIXTURES)
                 dev_pays = denormalize(sg, deviation_payoffs(sg, mixtures[:,start_index:end_index]))
                 append!(errors, abs.(dev_pays .- correct_dev_pays[:,start_index:end_index]) ./ range)
             end
