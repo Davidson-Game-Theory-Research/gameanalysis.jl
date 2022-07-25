@@ -41,7 +41,7 @@ function dev_pays_timing(players, actions, batch_size; game_type, num_mixtures, 
     timing_results = Dict{String,Real}()
     total_memory = game_size(game_type, players, actions) * batch_size
     if total_memory > memory_available
-        print("batches are too large with p=", players," & a=", actions,"\n")
+        print("batches are too large with p=", players,", a=", actions, ", b=", batch_size, "\n")
         for stat in ["min","max","mean","median","std"]
             timing_results[stat] = NaN
         end
@@ -69,7 +69,7 @@ function dev_pays_timing(players, actions, batch_size; game_type, num_mixtures, 
             timing_results["std"] = std(times)
             timing_results["trials"] = length(times)
         catch e
-            if e isa OverflowError
+            if e isa OverflowError || e isa InexactError
                 print("multinomial overflows with p=", players," & a=", actions,"\n")
                 for stat in ["min","max","mean","median","std"]
                     timing_results[stat] = NaN

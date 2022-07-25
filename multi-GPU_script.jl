@@ -18,8 +18,8 @@ const SETUP_CONFIG = Dict(
     :outfile_name=>OUTFILE,
     :min_players=>2,
     :max_players=>128,
-    :min_actions=>3,
-    :max_actions=>6,
+    :min_actions=>7,
+    :max_actions=>8,
     :batch_sizes=>[1, 10, 100]
 )
 @everywhere const EXPERIMENT_FUNCTION = dev_pays_timing
