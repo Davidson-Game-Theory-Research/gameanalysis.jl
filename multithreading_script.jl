@@ -1,29 +1,19 @@
 using Base.Threads: @spawn, threadid, nthreads
+using Dates
 
-include("dev_pays_timing_experiment.jl")
+# include("experiment_params/PayoffDict_dev_pays_timing_params.jl")
+# include("experiment_params/PayoffArrays_dev_pays_timing_params.jl")
+# include("experiment_params/RepeatsTable_dev_pays_timing_params.jl")
+# include("experiment_params/DeviationProfiles_dev_pays_timing_params.jl")
+# include("experiment_params/WeightedPayoffs_dev_pays_timing_params.jl")
+include("experiment_params/LogProbabilities_dev_pays_timing_params.jl")
 
-const OUTFILE = "data/PayoffDict_timing.csv"
-const SETUP_FUNCTION = parameter_setup
-const SETUP_CONFIG = Dict(
-    :outfile_name=>OUTFILE,
-    :min_players=>2,
-    :max_players=>128,
-    :min_actions=>3,
-    :max_actions=>8,
-    :batch_sizes=>[1, 10, 100]
-)
-const EXPERIMENT_FUNCTION = dev_pays_timing
-const EXPERIMENT_CONFIG = Dict(
-    :game_type=>PayoffDict,
-    :num_mixtures=>1000,
-    :memory_available=>2^30,
-    :outfile_name=>OUTFILE,
-    :outfile_lock=>ReentrantLock()
-)
+# include("experiment_params/PayoffDict_RD_timing_params.jl")
 
 
 function run_experiment(args_tuple)
-    println("Thread ", threadid(), " testing ", args_tuple,)
+    println("Thread ", threadid(), " testing input ", args_tuple, " starting at ", Dates.format(now(), "HH:MM"))
+    flush(stdout)
     EXPERIMENT_FUNCTION(args_tuple...; EXPERIMENT_CONFIG...)
 end
 

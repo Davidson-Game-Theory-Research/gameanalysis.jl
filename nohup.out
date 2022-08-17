@@ -1,0 +1,1256 @@
+
+signal (15): Terminated
+in expression starting at none:1
+setindex! at ./array.jl:903 [inlined]
+macro expansion at ./multidimensional.jl:867 [inlined]
+macro expansion at ./cartesian.jl:64 [inlined]
+_unsafe_getindex! at ./multidimensional.jl:862 [inlined]
+_unsafe_getindex at ./multidimensional.jl:853 [inlined]
+_getindex at ./multidimensional.jl:839 [inlined]
+getindex at ./abstractarray.jl:1218 [inlined]
+deviation_payoff at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:110
+unknown function (ip: 0x7f8ba41e52db)
+unknown function (ip: 0x7f8ba41dec49)
+unknown function (ip: 0x7f8ba41dea6a)
+#19 at ./generator.jl:0 [inlined]
+iterate at ./generator.jl:47 [inlined]
+collect_to! at ./array.jl:782 [inlined]
+collect_to_with_first! at ./array.jl:760 [inlined]
+collect at ./array.jl:734
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:68 [inlined]
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/AbstractGames.jl:48
+batched_dev_pays at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:34
+##core#1476 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:489
+##sample#1477 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:495
+unknown function (ip: 0x7f8afe9b6f80)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+#_run#48 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:99
+_run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:93
+unknown function (ip: 0x7f8ba41db578)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+jl_f__call_latest at /buildworker/worker/package_linux64/build/src/builtins.c:757
+#invokelatest#2 at ./essentials.jl:718 [inlined]
+invokelatest##kw at ./essentials.jl:714 [inlined]
+#run_result#45 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+run_result##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+#run#49 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+#warmup#54 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169 [inlined]
+warmup at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+macro expansion at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:393 [inlined]
+#dev_pays_timing#158 at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:62
+unknown function (ip: 0x7f8ba41bdc2c)
+dev_pays_timing##kw at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:40
+unknown function (ip: 0x7f8ba41a2386)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+run_experiment at /home/bryce/Desktop/research/GameAnalysis.jl/multithreading_script.jl:27
+#159 at ./threadingconstructs.jl:178
+unknown function (ip: 0x7f8ba41a1b2f)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+start_task at /buildworker/worker/package_linux64/build/src/task.c:877
+unknown function (ip: (nil))
+__divti3 at /workspace/srcdir/gcc-11.1.0/libgcc/libgcc2.c:1212
+multinomial at /home/bryce/.julia/packages/Combinatorics/Udg6X/src/factorials.jl:104
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+do_apply at /buildworker/worker/package_linux64/build/src/builtins.c:713
+deviation_payoff at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:110
+unknown function (ip: 0x7f8ba41e52db)
+unknown function (ip: 0x7f8ba41dec49)
+unknown function (ip: 0x7f8ba41dea6a)
+#19 at ./generator.jl:0 [inlined]
+iterate at ./generator.jl:47 [inlined]
+collect_to! at ./array.jl:782 [inlined]
+collect_to_with_first! at ./array.jl:760 [inlined]
+collect at ./array.jl:734
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:68 [inlined]
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/AbstractGames.jl:48
+batched_dev_pays at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:34
+##core#1271 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:489
+##sample#1272 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:495
+unknown function (ip: 0x7f8afe9abc20)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+#_run#48 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:99
+_run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:93
+unknown function (ip: 0x7f8ba41db578)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+jl_f__call_latest at /buildworker/worker/package_linux64/build/src/builtins.c:757
+#invokelatest#2 at ./essentials.jl:718 [inlined]
+invokelatest##kw at ./essentials.jl:714 [inlined]
+#run_result#45 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+run_result##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+#run#49 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+#warmup#54 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169 [inlined]
+warmup at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+macro expansion at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:393 [inlined]
+#dev_pays_timing#158 at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:62
+unknown function (ip: 0x7f8ba41bdc2c)
+dev_pays_timing##kw at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:40
+unknown function (ip: 0x7f8ba41a2386)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+run_experiment at /home/bryce/Desktop/research/GameAnalysis.jl/multithreading_script.jl:27
+#159 at ./threadingconstructs.jl:178
+unknown function (ip: 0x7f8ba41a1b2f)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+start_task at /buildworker/worker/package_linux64/build/src/task.c:877
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+gc_mark_loop at /buildworker/worker/package_linux64/build/src/gc.c:1694
+_jl_gc_collect at /buildworker/worker/package_linux64/build/src/gc.c:3039
+jl_gc_collect at /buildworker/worker/package_linux64/build/src/gc.c:3248
+maybe_collect at /buildworker/worker/package_linux64/build/src/gc.c:882 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+jl_gc_alloc_ at /buildworker/worker/package_linux64/build/src/julia_internal.h:339 [inlined]
+_new_array_ at /buildworker/worker/package_linux64/build/src/array.c:137 [inlined]
+_new_array at /buildworker/worker/package_linux64/build/src/array.c:193 [inlined]
+jl_alloc_array_1d at /buildworker/worker/package_linux64/build/src/array.c:441
+Array at ./boot.jl:457 [inlined]
+Array at ./boot.jl:466 [inlined]
+similar at ./array.jl:378 [inlined]
+similar at ./abstractarray.jl:783 [inlined]
+_unsafe_getindex at ./multidimensional.jl:851 [inlined]
+_getindex at ./multidimensional.jl:839 [inlined]
+getindex at ./abstractarray.jl:1218 [inlined]
+deviation_payoff at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:104
+unknown function (ip: 0x7f8ba41e52db)
+unknown function (ip: 0x7f8ba41dec49)
+unknown function (ip: 0x7f8ba41dea6a)
+#19 at ./generator.jl:0 [inlined]
+iterate at ./generator.jl:47 [inlined]
+collect_to! at ./array.jl:782 [inlined]
+collect_to_with_first! at ./array.jl:760 [inlined]
+collect at ./array.jl:734
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/SymmetricGames.jl:68 [inlined]
+deviation_payoffs at /home/bryce/Desktop/research/GameAnalysis.jl/AbstractGames.jl:48
+batched_dev_pays at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:34
+##core#1036 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:489
+##sample#1037 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:495
+unknown function (ip: 0x7f8afe99ee80)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+#_run#48 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:99
+_run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:93
+unknown function (ip: 0x7f8ba41db578)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+jl_f__call_latest at /buildworker/worker/package_linux64/build/src/builtins.c:757
+#invokelatest#2 at ./essentials.jl:718 [inlined]
+invokelatest##kw at ./essentials.jl:714 [inlined]
+#run_result#45 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+run_result##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:34 [inlined]
+#run#49 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+run##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:117 [inlined]
+#warmup#54 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169 [inlined]
+warmup##kw at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:169 [inlined]
+#tune!#58 at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:250
+tune! at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:250 [inlined]
+tune! at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:250 [inlined]
+macro expansion at /home/bryce/.julia/packages/BenchmarkTools/7xSXH/src/execution.jl:394 [inlined]
+#dev_pays_timing#158 at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:62
+unknown function (ip: 0x7f8ba41bdc2c)
+dev_pays_timing##kw at /home/bryce/Desktop/research/GameAnalysis.jl/dev_pays_timing_experiment.jl:40
+unknown function (ip: 0x7f8ba41a2386)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+run_experiment at /home/bryce/Desktop/research/GameAnalysis.jl/multithreading_script.jl:27
+#159 at ./threadingconstructs.jl:178
+unknown function (ip: 0x7f8ba41a1b2f)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2247 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2429
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1788 [inlined]
+start_task at /buildworker/worker/package_linux64/build/src/task.c:877
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:163
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+_mm_pause at /usr/local/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include/xmmintrin.h:1267 [inlined]
+jl_safepoint_wait_gc at /buildworker/worker/package_linux64/build/src/safepoint.c:164
+jl_set_gc_and_wait at /buildworker/worker/package_linux64/build/src/julia_internal.h:779 [inlined]
+segv_handler at /buildworker/worker/package_linux64/build/src/signals-unix.c:323
+_IO_funlockfile at /lib/x86_64-linux-gnu/libpthread.so.0 (unknown line)
+maybe_collect at /buildworker/worker/package_linux64/build/src/julia_threads.h:325 [inlined]
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1209
+unknown function (ip: (nil))
+Allocations: 859722493215 (Pool: 859719693428; Big: 2799787); GC: 464719
+Initiating 443 tests
+on config: Dict{Symbol, Any}(:game_type => PayoffArrays, :num_mixtures => 1000, :outfile_name => "data/PayoffArrays_timing.csv", :outfile_lock => ReentrantLock(nothing, Base.GenericCondition{Base.Threads.SpinLock}(Base.InvasiveLinkedList{Task}(nothing, nothing), Base.Threads.SpinLock(0)), 0), :memory_available => 1073741824)
+using 64 threads.
+Thread 11 testing Thread 2 testing Thread 3 testing Thread 8 testing Thread 64 testing Thread 59 testing Thread 48 testing Thread 50 testing Thread 60 testing Thread 5 testing Thread 30 testing Thread 16 testing Thread 43 testing Thread Thread 2018Thread Thread Thread Thread Thread Thread Thread Thread Thread Thread 54Thread Thread Thread 1725Thread Thread Thread Thread 46Thread  testing Thread Thread Thread Thread Thread 9Thread Thread Thread Thread 21Thread Thread Thread 45Thread Thread Thread Thread Thread Thread 1Thread Thread 37Thread Thread Thread Thread Thread Thread Thread 1Thread Thread 55Thread Thread Thread 35Thread Thread Thread Thread Thread Thread Thread Thread Thread Thread Thread (Thread Thread 46Thread Thread Thread Thread Thread Thread Thread (Thread 58Thread Thread Thread Thread 14Thread Thread Thread Thread Thread 58Thread Thread Thread 5124Thread Thread Thread  testing 25Thread Thread  testing 46Thread Thread 13(Thread  testing 20Thread Thread Thread  testing Thread (Thread Thread Thread 132Thread 17Thread Thread Thread Thread Thread Thread Thread Thread Thread Thread 15Thread 2654Thread Thread Thread Thread 58Thread Thread Thread 55Thread 33Thread Thread  testing Thread Thread Thread Thread Thread 9Thread Thread Thread Thread 58Thread Thread Thread Thread 3632Thread Thread 37Thread  testing Thread Thread Thread 21Thread Thread 24Thread 46Thread  testing Thread 9Thread 13(Thread Thread Thread  testing 9Thread Thread 1453Thread 37Thread Thread 3242Thread  testing Thread Thread Thread Thread 54Thread (Thread Thread 3355Thread Thread Thread (Thread Thread 67 testing ,Thread Thread Thread  testing 1Thread 1432 testing 31Thread  testing 55 testing Thread 47Thread 9(7Thread  testing 58Thread (2413Thread Thread Thread Thread Thread Thread 24Thread Thread Thread Thread 17Thread 47Thread Thread 42Thread Thread Thread Thread 14Thread 53Thread  testing Thread 24(Thread Thread Thread 17 testing 1458 testing Thread 73Thread 14(Thread (Thread (Thread 118251792544Thread Thread 1Thread Thread Thread Thread Thread 61( testing  testing  testing Thread 53Thread  testing 17Thread (Thread 58Thread 55,58Thread Thread  testing 58(1777Thread 34 testing  testing ((Thread Thread Thread Thread  testing Thread (Thread Thread 37Thread Thread 14Thread Thread  testing Thread 17Thread Thread Thread  testing 13Thread (46Thread Thread  testing 19 testing Thread  testing 53Thread 44 testing  testing (128(8655325499Thread 53Thread  testing 37 testing 32 testing Thread Thread Thread 24Thread 3232Thread 97814Thread  testing Thread ( 7942Thread  testing Thread (Thread  testing 14((54Thread 53Thread ,Thread 41241332 testing  testing 13Thread  testing Thread 7131 testing Thread Thread Thread 40 testing 33 testing Thread ( testing  testing (Thread Thread 6Thread Thread (Thread 55 testing 55Thread  testing Thread 42Thread Thread 53146 testing 68 testing Thread 39174632Thread  testing 44Thread Thread (Thread Thread  testing  testing Thread 3713Thread Thread (2469 testing 1Thread  testing 55Thread Thread Thread  testing  testing 5854139Thread 2537Thread 46Thread (Thread 25 testing ,371725 testing 3236Thread  testing Thread 13Thread 58 testing 117 testing ,1 testing  testing 37Thread  testing Thread 37(14Thread  testing 37 testing ((17(86 testing Thread 1735 testing  testing  testing (((5614 testing 5842 testing Thread ( testing Thread 284646101Thread Thread 14135444 testing 32Thread Thread  testing 25Thread 37 testing  testing Thread  testing (4442,464244Thread 1725 testing 30 testing Thread  testing 1458( testing Thread Thread 354246225414Thread (814415Thread 53 testing  testing  testing ,27 testing (Thread Thread (114( testing Thread  testing Thread  testing (54 testing ((Thread (9 testing ,(32 Thread Thread  testing 10012 testing Thread  46Thread 53Thread  testing  testing 24Thread (2536 testing  testing  testing Thread (Thread 4324 testing Thread Thread Thread (4425 testing (,(Thread ,1344(Thread  testing 55 testing (,Thread 5446(Thread ,Thread (,Thread 43 253942 testing (Thread ( testing 25 testing 3559 testing  testing  testing  testing Thread 25559((Thread Thread ( testing 47( testing  testing  testing 53Thread 44 testing Thread 32( testing  testing  testing  testing (96 testing 46(Thread 54(Thread (12Thread  testing  testing Thread 4610Thread (24( testing (91 testing 55( testing (5734(5532 testing 58( testing  Thread 32 testing Thread Thread Thread (241489 testing  testing 3723, testing Thread  testing ( testing Thread 1 testing  testing 17(3590 testing 37( testing Thread (1420(Thread  testing 37 testing 10 testing ,(5553Thread 65110 testing (Thread Thread Thread 42Thread ,46Thread Thread 1424Thread  ((469Thread 381Thread 8144,5418 testing 87Thread  testing 73Thread 1752,1 testing ( testing  testing ( testing ,75(Thread (17795358 testing  testing  testing 141725Thread (44 testing ((14 testing 39Thread 25 testing 102Thread (52Thread 67 testing 17Thread 58,((59( testing 46Thread ( testing Thread 24(, testing 9Thread (2651 testing Thread 17 testing 17(,24( testing 97 testing  testing 25 testing ((Thread Thread Thread  testing 62  testing  testing 64 testing ,( testing  testing 5Thread 24 testing ( Thread  testing 2563 testing ( testing Thread  testing (5855 testing Thread (32 testing Thread 120 testing (81102( testing  testing  testing 2293 testing (Thread 25 48Thread  testing 24Thread  testing  76114 Thread Thread 379 testing 38Thread (,1074917Thread Thread 249737( testing  testing (Thread (32 testing  testing ( testing 6((,Thread ( testing   testing  testing  testing ((Thread 5325 testing 74( testing 17(9 testing 1211,, testing   13((,83(88(46(11( testing 18(3Thread ,Thread ,37(92123,, testing  (44(5417 testing 25 (,(17 testing  testing 142 47Thread Thread  testing , testing  testing (((Thread ,17,,118, testing  Thread Thread ((7( testing 5(,(58( testing ( testing 135524 testing 15Thread  testing ,37 testing , testing ,Thread ,Thread  testing ((124(104256Thread  testing (18( testing 42,72( 68Thread  Thread 3(58(( testing 32 114 testing  testing Thread ((531265812424, testing (12 testing ,(Thread ,11332 testing  testing  testing  testing 65(, testing (8(72 testing (1375 24,90 testing ( 111 testing , testing 13529, testing  , testing  testing  testing 83(Thread (,, 441118Thread 4124(( testing 106 testing (((  ,2513 testing  testing (55 testing ,, 52,(6858 38  testing 7(,1061121, testing  testing (4Thread , testing 54(94(((3726 testing  testing (, testing 11929(, testing  , testing 106 testing ( 39(95( ,8( testing 53(9111(Thread ,53171931 testing ,11380 50101 testing 58 testing ,( testing (28115Thread ,7,,77, testing  ,(24(2471671255817(4,(9211((792Thread  testing 40,1768,5310993 testing ,((53705(( testing 73118(,87 testing ( 44 (, testing Thread ( testing 9( testing ,,1 testing 105 testing ( testing , 37 5184675 testing 54122Thread  testing , ,25((  testing 373, 55 13( testing ( testing 91Thread  testing 4Thread 533, testing  testing ,, testing (( testing (5532(((892536(,39479 testing 77,,,105 testing 8(( testing 106((,  testing 13 58) 
+ testing 83121122 testing ,9(35(, testing 8158, testing ( testing (40109753,6 74 8710585 testing 6246 testing , testing  111, 13(829(,Thread  testing 38,54,Thread (55(35,(1103 testing , 1106911246 testing  testing (54,(,, (13, testing (,,, (127 testing  testing  (3210(,,4693(1311054 testing (5539, ,1 (3,((52,41,6 testing 10(, 6525,)(( testing  testing  6()53 55119 testing 10396(, 649814,83(  testing  testing   99557615453 testing  testing  97 ,Thread 123 testing ,(,  ((42 testing ,5553(7,11429,)  testing   37 testing ,121 113, ( ,  testing 80  testing  (( 44, testing   Thread 8  testing ,(( 5 testing ( 3,99 ( testing 62 testing ,(
+64 , 64 , testing   (55 testing Thread (((6 ,Thread 1167,76,784  testing ,(5  127,574,32 6,,,(  , , 4 testing 125 testing 32(1,,101108 126127,13,44 126 testing ,(109117, testing ,61 (, 11765274 testing 54338(,, 72(,Thread 85 testing  70( 18(11658  testing 253 , testing ,(((66 73,(8 , (14 testing (,7 testing 55(,, ,,(5 testing ( ( 1077, ,, testing ,(132Thread  testing 25( 50(7 testing 66  testing 5,,,,  (40( testing 6(11911258, testing ( testing 57( testing 86(115(,,,, ,(   testing 6(,,45257128 30,,,6  testing 25 7, 91(888,48 testing  testing ,7 testing (,8 ,1780,(151,,  53,,, testing  testing  testing  testing  , testing  (, testing ,35(1(34, testing 8  825,, ,,   (, ,39Thread    119( 95 13,5538 ,3,756 testing 196 testing , testing (,471 25 (,105(,78, testing ( , testing   testing  testing ,Thread , ) 525, testing  testing ,( ( testing 31(78),, testing 17  testing (1( ( 89785,, ,6 testing   testing 880((92103,,,,7 , testing  testing 6 testing 535 )8
+1040,)(8(,
+6137,  ,3714,6,123,115  8( 8, 1,) testing 
+, ( testing  testing ,(, 3, testing  testing ,13 54, (,120,  Thread ,,,(( testing ((,45 51(44  testing  ,1 9553 7,,, testing ,,, testing 1)735,(  7831,5  549,8 27,84  , testing   Thread 598 (5 testing 25 (126  ,74  ,116,, ,87117, ,, (124375737,10096  (6,67,,,,46(69 testing ( 4(756(  testing  ( 8, , 317,6 46,88,  testing 772 testing  testing  , ( 33,,6 
+8,7,,  4111)125 44(542,, 1(,,, ,   , testing ,(,   ,7 testing 7719 ,  ,7,, testing ,41 , 121( testing 628,58115 1,108107,,61   testing 1 testing (,) 
+ ,7,,4 5 ,(, 8 ,( (591),1,,( ( ,1017126,745117,733,356 , 25 testing 4127(,3213 testing  98 , ,(21551188,( ,,,86 10314 ,(6 ( 69Thread  247,4,25((110(  testing 1(,( 417
+,23)2 ,  (,1128,   ,11,) 8  testing 8, (1,14( testing ,,13(93,,(6(8,,, testing )  ,
+, testing ((,32 315 (6,    1 , 29, 708214,  )7(  445,58 testing 98171,,8,,, 122(  7 ,608,319(, , 8()95( 1211),
+5154) testing ,,7,  11)116)
+,,, testing   testing (Thread 115,,1 ,(1   
+67, 1) (1)(
+107, ,3,  )  ,,  testing 12516, , ) 
+871, 3
+, ,  testing  testing , (137, ) 17, 7,89 14, 8,  81),,13,  testing 1 ,5,  1)8,  1)1), 71, ,8 6, ( 122),1 
+7,   59 7) testing 1 677,, 1,
+8(1,(,,)  1 ) ) 5  7 testing ,1)71(1,(187,100,57011)  testing 61 testing ( 7,986,   (,36  7 28861)1(),123 ,(31,721067961 )1 183 testing 69(,8
+  187, 64),,4661(181, 49120,30,,,,81863,
+
+ , (,58,,, 8  6 testing  testing 1,()840,,66, 831 testing  ,,
+))
+,3, , (,,, 102 7, ,6 1786,  11) 261))
+((, 11)1),  , , 126, )119
+  ,1 8 testing   )(
+,(,49  7(,71,  testing 3, 8,, ,( )  1,),
+  ,4),
+( testing  )(
+)49,
+,89,, ,,  61,, 7(8 ,,8  testing 61,( ,1,,, testing ),  1   ,16  4
+, 6,1 ),
+,  4,748, )8, 75, , 1)23,  , , (( , 7, 3,, 
+8 7(  1
+,8 5()1
+,8)) testing ,16 ), 3 (,17, testing 3( )  ,,,15
+,14),,
+  testing  
+17, , 11( 123, 1)21,(, 
+1))43, , ,,  41,  1)5 ,  13),  1) 8,  ,1)
+
+8, 1) 6, 1), 1) 117, 1) ,, , 1)1)8,90, ,8,  
+5)1)518,)( 1 315),   11041)1
+
+  
+1) 1)6,)104, 7,     8, ) ((), 71 ))),
+, ((122,  
+4, ,   
+1 ,1,)8 
+ testing ) 
+7
+7
+1(8, ,44(11)
+5117
+176, 78,  , , 6,1,5  7,,  , testing 143, , ,  
+1,), ,7
+
+ 8,  testing , 
+5, 7,(
+
+
+) ,,, )521, ,1 5)85 11, 68,1125,, )(  8,) 7
+(1)), 4, 7, 5, 35,, 27
+ testing 
+(118, 5, 1)
+batches are too large with p=71, a=7, b=1
+batches are too large with p=118, a=7, b=1
+batches are too large with p=66, a=6, b=1
+1)
+ 5, 1)
+batches are too large with p=71, a=8, b=1
+)
+batches are too large with p=97, a=7, b=1
+ 8, 1)
+batches are too large with p=84, a=8, b=1
+
+batches are too large with p=93, a=7, b=1
+1)
+ 1)
+batches are too large with p=98, a=8, b=1
+, 1)
+batches are too large with p=89, a=8, b=1
+1)
+batches are too large with p=64, a=8, b=1
+ 1)
+batches are too large with p=34, a=8, b=1
+8, 1)
+batches are too large with p=124, a=6, b=1
+, 1)
+batches are too large with p=81, a=8, b=1
+
+batches are too large with p=50, a=8, b=1
+8, 1)
+batches are too large with p=48, a=8, b=1
+, 7, 1)
+batches are too large with p=119, a=8, b=1
+6, 1)
+batches are too large with p=78, a=7, b=1
+6, 1)
+batches are too large with p=122, a=6, b=1
+, 1)
+batches are too large with p=115, a=8, b=1
+50, 6, 1)
+batches are too large with p=112, a=7, b=1
+1)
+batches are too large with p=100, a=8, b=1
+6, 1)
+batches are too large with p=71, a=6, b=1
+1)
+batches are too large with p=70, a=7, b=1
+, 1)
+batches are too large with p=76, a=8, b=1
+1)
+batches are too large with p=83, a=8, b=1
+7, 1)
+batches are too large with p=121, a=7, b=1
+5, 1)
+batches are too large with p=114, a=8, b=1
+89, 4, 1)
+batches are too large with p=117, a=6, b=1
+75, 8, 1)
+batches are too large with p=75, a=8, b=1
+ 8, 1)
+batches are too large with p=51, a=8, b=1
+ 6, 1)
+batches are too large with p=118, a=8, b=1
+)
+batches are too large with p=73, a=8, b=1
+ 1)
+batches are too large with p=80, a=8, b=1
+
+batches are too large with p=94, a=8, b=1
+7, 1)
+multinomial overflows with p=73 & a=3
+3, 1)
+batches are too large with p=101, a=7, b=1
+, 1)
+multinomial overflows with p=98 & a=3
+7, 1)
+batches are too large with p=49, a=7, b=1
+, 1)
+batches are too large with p=123, a=8, b=1
+1)
+batches are too large with p=73, a=7, b=1
+1)
+batches are too large with p=113, a=8, b=1
+
+batches are too large with p=78, a=6, b=1
+94, 4, 1)
+multinomial overflows with p=81 & a=3
+(91, 3, 1)
+multinomial overflows with p=112 & a=3
+, 1)
+batches are too large with p=35, a=8, b=1
+)
+multinomial overflows with p=83 & a=3
+82, 8, 1)
+batches are too large with p=82, a=8, b=1
+1)
+multinomial overflows with p=68 & a=3
+, 8, 1)
+batches are too large with p=57, a=8, b=1
+5, 1)
+multinomial overflows with p=100 & a=3
+ 1)
+multinomial overflows with p=91 & a=3
+)
+multinomial overflows with p=71 & a=3
+4, 1)
+batches are too large with p=112, a=8, b=1
+ 1)
+batches are too large with p=110, a=6, b=1
+ 1)
+batches are too large with p=105, a=6, b=1
+ 1)
+multinomial overflows with p=106 & a=3
+, 8, 1)
+batches are too large with p=30, a=8, b=1
+5, 1)
+multinomial overflows with p=103 & a=3
+77, 7, 1)
+batches are too large with p=77, a=7, b=1
+, 8, 1)
+batches are too large with p=92, a=8, b=1
+
+batches are too large with p=50, a=7, b=1
+ 7, 1)
+batches are too large with p=69, a=7, b=1
+ 1)
+batches are too large with p=42, a=8, b=1
+, 1)
+3, 1)
+8, 1)
+batches are too large with p=117, a=8, b=1
+)
+batches are too large with p=103, a=8, b=1
+)
+batches are too large with p=126, a=6, b=1
+ testing (122, 3, 1)
+67, 8, 1)
+batches are too large with p=67, a=8, b=1
+1)
+multinomial overflows with p=91 & a=4
+
+batches are too large with p=36, a=8, b=1
+24, 7, 1)
+multinomial overflows with p=85 & a=3
+)
+multinomial overflows with p=122 & a=3
+ 7, 1)
+batches are too large with p=106, a=7, b=1
+, 1)
+batches are too large with p=99, a=8, b=1
+
+multinomial overflows with p=97 & a=3
+ 1)
+multinomial overflows with p=90 & a=3
+, 1)
+batches are too large with p=74, a=6, b=1
+, 1)
+batches are too large with p=46, a=7, b=1
+
+multinomial overflows with p=92 & a=4
+
+multinomial overflows with p=110 & a=3
+1)
+ testing (33, 8, 1)
+batches are too large with p=33, a=8, b=1
+63, 6, 1)
+multinomial overflows with p=68 & a=4
+6, 1)
+batches are too large with p=69, a=6, b=1
+)
+multinomial overflows with p=92 & a=3
+7, 1)
+batches are too large with p=126, a=7, b=1
+, 1)
+multinomial overflows with p=72 & a=4
+(121, 8, 1)
+batches are too large with p=121, a=8, b=1
+
+batches are too large with p=101, a=8, b=1
+ 4, 1)
+multinomial overflows with p=73 & a=4
+79, 6, 1)
+batches are too large with p=79, a=6, b=1
+(60, 7, 1)
+batches are too large with p=60, a=7, b=1
+3, 1)
+multinomial overflows with p=70 & a=4
+, 7, 1)
+batches are too large with p=104, a=7, b=1
+93, 5, 1)
+32, 8, 1)
+batches are too large with p=32, a=8, b=1
+)
+batches are too large with p=79, a=7, b=1
+3, 1)
+multinomial overflows with p=78 & a=3
+ 4, 1)
+
+multinomial overflows with p=77 & a=3
+1)
+)
+batches are too large with p=56, a=7, b=1
+43, 3, 1)
+multinomial overflows with p=87 & a=4
+ 6, 1)
+multinomial overflows with p=89 & a=4
+)
+batches are too large with p=85, a=8, b=1
+ 1)
+multinomial overflows with p=105 & a=4
+ 1)
+batches are too large with p=68, a=7, b=1
+3, 1)
+multinomial overflows with p=107 & a=3
+, 1)
+batches are too large with p=106, a=8, b=1
+, 7, 1)
+batches are too large with p=51, a=7, b=1
+1)
+batches are too large with p=77, a=8, b=1
+ 5, 1)
+multinomial overflows with p=126 & a=3
+ 1)
+multinomial overflows with p=94 & a=4
+
+batches are too large with p=79, a=8, b=1
+116, 5, 1)
+, 4, 1)
+(94, 7, 1)
+batches are too large with p=94, a=7, b=1
+ 1)
+multinomial overflows with p=98 & a=4
+1)
+multinomial overflows with p=80 & a=3
+
+batches are too large with p=87, a=8, b=1
+
+batches are too large with p=108, a=8, b=1
+1)
+multinomial overflows with p=113 & a=4
+1)
+multinomial overflows with p=95 & a=4
+
+multinomial overflows with p=121 & a=4
+8, 1)
+batches are too large with p=39, a=8, b=1
+ 1)
+batches are too large with p=68, a=6, b=1
+
+multinomial overflows with p=125 & a=4
+
+batches are too large with p=93, a=8, b=1
+
+batches are too large with p=117, a=7, b=1
+, 1)
+batches are too large with p=116, a=8, b=1
+ 6, 1)
+batches are too large with p=115, a=6, b=1
+ 1)
+batches are too large with p=64, a=6, b=1
+)
+batches are too large with p=103, a=7, b=1
+ 5, 1)
+multinomial overflows with p=116 & a=4
+37 testing (46, 8, 1)
+batches are too large with p=46, a=8, b=1
+(128, 7, 1)
+batches are too large with p=128, a=7, b=1
+57, 6, 1)
+multinomial overflows with p=81 & a=4
+, 1)
+, 7, 1)
+1)
+(120, 3, 1)
+multinomial overflows with p=120 & a=3
+, 7, 1)
+batches are too large with p=61, a=7, b=1
+, 3, 1)
+multinomial overflows with p=89 & a=3
+8, 1)
+batches are too large with p=74, a=8, b=1
+4, 1)
+1)
+multinomial overflows with p=115 & a=4
+1)
+multinomial overflows with p=96 & a=4
+1)
+batches are too large with p=82, a=7, b=1
+1)
+multinomial overflows with p=75 & a=4
+(127, 8, 1)
+batches are too large with p=127, a=8, b=1
+ 1)
+multinomial overflows with p=106 & a=4
+ 5, 1)
+multinomial overflows with p=69 & a=5
+4, 1)
+multinomial overflows with p=118 & a=4
+, 8, 1)
+batches are too large with p=96, a=8, b=1
+
+multinomial overflows with p=73 & a=5
+ 5, 1)
+multinomial overflows with p=74 & a=5
+(82, 4, 1)
+multinomial overflows with p=82 & a=4
+ 5, 1)
+multinomial overflows with p=111 & a=4
+1)
+batches are too large with p=86, a=7, b=1
+Thread 13 testing (20, 8, 1)
+multinomial overflows with p=77 & a=5
+1)
+multinomial overflows with p=79 & a=5
+1)
+batches are too large with p=91, a=7, b=1
+8, 1)
+, 4, 1)
+multinomial overflows with p=86 & a=5
+, 8, 1)
+batches are too large with p=54, a=8, b=1
+ 1)
+batches are too large with p=72, a=7, b=1
+1)
+batches are too large with p=67, a=7, b=1
+ 1)
+multinomial overflows with p=117 & a=4
+8, 1)
+multinomial overflows with p=89 & a=5
+, 1)
+batches are too large with p=96, a=7, b=1
+1)
+)
+multinomial overflows with p=93 & a=5
+)
+batches are too large with p=125, a=6, b=1
+, 5, 1)
+multinomial overflows with p=92 & a=5
+8, 1)
+batches are too large with p=41, a=8, b=1
+(26, 8, 1)
+multinomial overflows with p=95 & a=5
+, 1)
+batches are too large with p=127, a=7, b=1
+48, 7, 1)
+batches are too large with p=48, a=7, b=1
+
+batches are too large with p=42, a=7, b=1
+122, 4, 1)
+multinomial overflows with p=72 & a=5
+7, 1)
+batches are too large with p=58, a=7, b=1
+111, 8, 1)
+batches are too large with p=111, a=8, b=1
+3, 1)
+multinomial overflows with p=117 & a=3
+1)
+batches are too large with p=31, a=8, b=1
+119, 4, 1)
+multinomial overflows with p=119 & a=4
+
+multinomial overflows with p=67 & a=3
+6, 1)
+batches are too large with p=118, a=6, b=1
+28, 8, 1)
+multinomial overflows with p=122 & a=4
+47, 7, 1)
+batches are too large with p=47, a=7, b=1
+, 7, 1)
+multinomial overflows with p=99 & a=5
+1)
+multinomial overflows with p=125 & a=3
+ 1)
+)
+multinomial overflows with p=102 & a=5
+1)
+multinomial overflows with p=107 & a=5
+(26, 6, 1)
+multinomial overflows with p=101 & a=5
+ 5, 1)
+multinomial overflows with p=109 & a=5
+124, 4, 1)
+multinomial overflows with p=124 & a=4
+1)
+
+multinomial overflows with p=101 & a=3
+(43, 7, 1)
+batches are too large with p=43, a=7, b=1
+, 1)
+batches are too large with p=97, a=8, b=1
+(112, 6, 1)
+batches are too large with p=112, a=6, b=1
+
+multinomial overflows with p=121 & a=3
+1)
+multinomial overflows with p=112 & a=4
+ 1)
+batches are too large with p=114, a=6, b=1
+)
+multinomial overflows with p=115 & a=5
+ testing (87, 7, 1)
+batches are too large with p=87, a=7, b=1
+
+multinomial overflows with p=116 & a=5
+1)
+multinomial overflows with p=83 & a=5
+)
+multinomial overflows with p=120 & a=4
+1)
+multinomial overflows with p=117 & a=5
+ 5, 1)
+, 8, 1)
+batches are too large with p=107, a=8, b=1
+
+batches are too large with p=107, a=6, b=1
+1)
+batches are too large with p=62, a=8, b=1
+ 4, 1)
+multinomial overflows with p=118 & a=5
+104, 4, 1)
+multinomial overflows with p=126 & a=4
+ 1)
+multinomial overflows with p=93 & a=3
+
+multinomial overflows with p=104 & a=4
+ 1)
+batches are too large with p=55, a=8, b=1
+
+1)
+multinomial overflows with p=86 & a=3
+
+ 4, 1)
+multinomial overflows with p=123 & a=4
+5, 1)
+multinomial overflows with p=124 & a=5
+, 1)
+batches are too large with p=109, a=7, b=1
+1)
+multinomial overflows with p=76 & a=5
+, 3, 1)
+multinomial overflows with p=70 & a=3
+, 1)
+batches are too large with p=120, a=8, b=1
+ 1)
+76, 4, 1)
+multinomial overflows with p=76 & a=4
+ 6, 1)
+multinomial overflows with p=127 & a=5
+53 testing (106, 5, 1)
+)
+batches are too large with p=53, a=8, b=1
+, 1)
+multinomial overflows with p=122 & a=5
+5, 1)
+multinomial overflows with p=128 & a=5
+6, 1)
+multinomial overflows with p=106 & a=5
+, 1)
+multinomial overflows with p=88 & a=5
+ 5, 1)
+multinomial overflows with p=126 & a=5
+)
+multinomial overflows with p=113 & a=3
+1)
+, 1)
+batches are too large with p=90, a=7, b=1
+ 1)
+ 1)
+1)
+batches are too large with p=69, a=8, b=1
+8, 1)
+batches are too large with p=70, a=8, b=1
+, 5, 1)
+ 1)
+batches are too large with p=120, a=7, b=1
+, 1)
+batches are too large with p=85, a=7, b=1
+ 7, 1)
+1)
+batches are too large with p=77, a=6, b=1
+ 4, 1)
+multinomial overflows with p=93 & a=4
+1)
+batches are too large with p=86, a=8, b=1
+ 1)
+batches are too large with p=106, a=6, b=1
+, 6, 1)
+multinomial overflows with p=96 & a=5
+ 1)
+multinomial overflows with p=109 & a=3
+
+multinomial overflows with p=127 & a=3
+1)
+multinomial overflows with p=121 & a=5
+, 6, 1)
+70, 6, 1)
+batches are too large with p=70, a=6, b=1
+, 1)
+ 1)
+batches are too large with p=76, a=7, b=1
+1)
+)
+multinomial overflows with p=111 & a=3
+
+batches are too large with p=89, a=7, b=1
+, 1)
+batches are too large with p=90, a=8, b=1
+
+batches are too large with p=81, a=6, b=1
+)
+ 7, 1)
+batches are too large with p=111, a=7, b=1
+)
+batches are too large with p=122, a=8, b=1
+6, 1)
+batches are too large with p=75, a=6, b=1
+1)
+batches are too large with p=122, a=7, b=1
+7, 1)
+)
+batches are too large with p=54, a=7, b=1
+(47, 8, 1)
+batches are too large with p=47, a=8, b=1
+ 1)
+multinomial overflows with p=105 & a=5
+108, 6, 1)
+batches are too large with p=108, a=6, b=1
+1)
+batches are too large with p=81, a=7, b=1
+
+1)
+multinomial overflows with p=97 & a=5
+8, 1)
+batches are too large with p=104, a=8, b=1
+8, 1)
+batches are too large with p=37, a=8, b=1
+1)
+multinomial overflows with p=128 & a=3
+, 7, 1)
+batches are too large with p=88, a=7, b=1
+

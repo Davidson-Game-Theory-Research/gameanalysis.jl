@@ -1,5 +1,5 @@
 using CSV, DataFrames, BenchmarkTools
-# using CUDA
+using CUDA
 using Statistics: std
 
 include("GameAnalysis.jl")
@@ -9,13 +9,12 @@ const independent_columns = [
     "players"=>Int[], "actions"=>Int[], "batch_size"=>Int[]
 ]
 const dependent_columns = [
-    "min"=>Float64[], "max"=>Float64[], "mean"=>Float64[],
-    "median"=>Float64[], "std"=>Float64[], "trials"=>Int[]
+    "min_time"=>Float64[]
 ]
 const input_col_indices = 1:3
 
-function parameter_setup(; outfile_name, min_players, max_players, min_actions, max_actions, batch_sizes)
-    all_inputs = Iterators.product(min_players:max_players, min_actions:max_actions, batch_sizes)
+function parameter_setup(; outfile_name, player_counts, action_counts, batch_sizes)
+    all_inputs = Iterators.product(player_counts, action_counts, batch_sizes)
     if !isfile(outfile_name)
         timing_data_frame = DataFrame(independent_columns..., dependent_columns...)
         CSV.write(outfile_name, [], writeheader=true, header=names(timing_data_frame))
@@ -36,45 +35,31 @@ function batched_dev_pays(game, mixtures, batch_size)
     return dev_pays
 end
 
-function dev_pays_timing(players, actions, batch_size; game_type, num_mixtures, memory_available, outfile_name, outfile_lock)
+function dev_pays_timing(players, actions, batch_size; game_type, num_mixtures,
+                        benchmark_evals, benchmark_samples, benchmark_seconds,
+                        memory_available, outfile_name, outfile_lock)
     timing_inputs = Dict{String,Integer}("players"=>players, "actions"=>actions, "batch_size"=>batch_size)
     timing_results = Dict{String,Real}()
     total_memory = game_size(game_type, players, actions) * batch_size
     if total_memory > memory_available
         print("batches are too large with p=", players,", a=", actions, ", b=", batch_size, "\n")
-        for stat in ["min","max","mean","median","std"]
-            timing_results[stat] = NaN
-        end
-        timing_results["trials"] = 0
+        timing_results["min_time"] = NaN
     else
-        mixtures = Matrix{Float64}(undef, actions, num_mixtures)
-        grid_points, grid_size = finest_grid(actions, num_mixtures)
-        mixtures[:,1:grid_size] = mixture_grid(actions, grid_points)
-        if grid_size < num_mixtures
-            mixtures[:,grid_size+1:end] = random_mixtures(actions, num_mixtures - grid_size)
-        end
+        mixtures = random_mixtures(actions, num_mixtures)
         agg = additive_sin_game(players, actions, NUM_FUNCTIONS)
         try
             sg = to_sym_game(agg, game_type)
             if game_type == GPUArrays
-                t = @benchmark CUDA.@sync batched_dev_pays($sg, $mixtures, $batch_size)
+                bm = @benchmark (CUDA.@sync batched_dev_pays($sg, $mixtures, $batch_size)) evals=benchmark_evals samples=benchmark_samples seconds=benchmark_seconds
+                t = minimum(bm.times) / 10^9
             else
-                t = @benchmark batched_dev_pays($sg, $mixtures, $batch_size)
+                t = @belapsed batched_dev_pays($sg, $mixtures, $batch_size) evals=benchmark_evals samples=benchmark_samples seconds=benchmark_seconds
             end
-            times = t.times
-            timing_results["min"] = minimum(times)
-            timing_results["max"] = maximum(times)
-            timing_results["mean"] = mean(times)
-            timing_results["median"] = median(times)
-            timing_results["std"] = std(times)
-            timing_results["trials"] = length(times)
+            timing_results["min_time"] = t
         catch e
             if e isa OverflowError || e isa InexactError
                 print("multinomial overflows with p=", players," & a=", actions,"\n")
-                for stat in ["min","max","mean","median","std"]
-                    timing_results[stat] = NaN
-                end
-                timing_results["trials"] = 0
+                timing_results["min_time"] = NaN
             else
                 throw(e)
             end

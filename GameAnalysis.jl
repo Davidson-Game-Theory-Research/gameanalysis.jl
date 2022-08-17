@@ -1,10 +1,8 @@
-using Revise
-
-includet("SimplexOperations.jl")
-includet("AbstractGames.jl")
-includet("SymmetricGames.jl")
-includet("ActionGraphGames.jl")
-includet("RandomFunctions.jl")
-includet("RandomGames.jl")
-includet("Nash.jl")
-# includet("SimplexPlots.jl")
+include("SimplexOperations.jl")
+include("AbstractGames.jl")
+include("SymmetricGames.jl")
+include("ActionGraphGames.jl")
+include("RandomFunctions.jl")
+include("RandomGames.jl")
+include("Nash.jl")
+# include("SimplexPlots.jl")

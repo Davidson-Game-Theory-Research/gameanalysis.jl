@@ -1,36 +1,16 @@
-using CUDA, Distributed
-using CSV, DataFrames
+@everywhere using CUDA
+@everywhere using CSV, DataFrames
+@everywhere using Dates
 
 global GPUs = collect(CUDA.devices())
 global num_resources = length(GPUs)
-addprocs(num_resources, exeflags="--project=$(Base.active_project())")
 global worker_procs = workers()
-@everywhere using CUDA
-
 global resources_lock = ReentrantLock()
 global resource_availablility = ones(Bool, num_resources)
 
-@everywhere include("dev_pays_timing_experiment.jl")
-
-@everywhere const OUTFILE = "data/GPUArrays_timing.csv"
-const SETUP_FUNCTION = parameter_setup
-const SETUP_CONFIG = Dict(
-    :outfile_name=>OUTFILE,
-    :min_players=>2,
-    :max_players=>128,
-    :min_actions=>7,
-    :max_actions=>8,
-    :batch_sizes=>[1, 10, 100]
-)
-@everywhere const EXPERIMENT_FUNCTION = dev_pays_timing
-@everywhere const EXPERIMENT_CONFIG = Dict(
-    :game_type=>LogProbabilities,
-    :num_mixtures=>1000,
-    :memory_available=>2^30,
-    :outfile_name=>OUTFILE,
-    :outfile_lock=>ReentrantLock()
-)
-
+@everywhere include("experiment_params/GPUArrays_dev_pays_timing_params.jl")
+# @everywhere include("experiment_params/GPUArrays_RD_timing_params.jl")
+# @everywhere include("experiment_params/GPUArrays_GD_timing_params.jl")
 
 function claim_resources()
     lock(resources_lock)
@@ -57,7 +37,8 @@ function run_experiment(args_tuple)
     my_proc = worker_procs[my_resource_num]
     remotecall_wait(my_proc) do
         device!(my_GPU)
-        println("Process ", getpid(), " using ", device(), " to test ", args_tuple, "\n")
+        println("Process ", getpid(), " using ", device(), " to test ", args_tuple, " starting at ", Dates.format(now(), "HH:MM"))
+        flush(stdout)
         EXPERIMENT_FUNCTION(args_tuple...; EXPERIMENT_CONFIG...)
     end
     release_resources(my_resource_num)
@@ -65,6 +46,9 @@ end
 
 function main()
     inputs = SETUP_FUNCTION(; SETUP_CONFIG...)
+    println("Initiating ", length(inputs), " tests")
+    println("on config: ", EXPERIMENT_CONFIG)
+    println("using ", num_resources, " GPUs.")
     asyncmap(run_experiment, inputs; ntasks=num_resources)
 end
 

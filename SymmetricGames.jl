@@ -35,6 +35,9 @@ function normalize(payoffs::VecOrMat, offset::Real, scale::Real)
 end
 
 function PayoffDict(num_players, num_actions, payoff_generator)
+    worst_profile = Array{SafeInt64}([num_players ÷ num_actions + (num_players % num_actions ≥ a)
+                                        for a in 1:num_actions])
+    multinomial(worst_profile...) # throw the error now rather than in deviation_payoffs()
     payoff_table = Dict{Vector{Int64}, Vector{Float64}}()
     min_payoff = Inf
     max_payoff = -Inf
@@ -80,6 +83,9 @@ struct PayoffArrays <: IterativeGame
 end
 
 function PayoffArrays(num_players, num_actions, payoff_generator)
+    worst_profile = Array{SafeInt64}([num_players ÷ num_actions + (num_players % num_actions ≥ a)
+                                        for a in 1:num_actions])
+    multinomial(worst_profile...) # throw the error now rather than in deviation_payoffs()
     num_configs = multinomial(num_players, num_actions-1)
     config_table = Array{Int64}(undef, num_configs, num_actions)
     payoff_table = Array{Float64}(undef, num_configs, num_actions)
@@ -387,12 +393,12 @@ function game_size(GameType, num_players::Integer, num_actions::Integer)
         s += config_entries * sizeof(Float64)
     elseif GameType == GPUArrays || GameType == CPU_32bit
         config_entries = num_payoffs(num_players, num_actions, dev=true)
-        s = num_configs * sizeof(Float32)
-        s += num_configs * sizeof(Float32)
+        s = config_entries * sizeof(Float32)
+        s += config_entries * sizeof(Float32)
     elseif GameType == DeviationProfiles
         config_entries = num_payoffs(num_players, num_actions, dev=true)
         s = config_entries * sizeof(Int64)
-        s += config_entries / num_actions * sizeof(Int64)
+        s += config_entries ÷ num_actions * sizeof(Int64)
         s += config_entries * sizeof(Float64)
     elseif GameType == RepeatsTable
         config_entries = num_payoffs(num_players, num_actions, dev=false)
