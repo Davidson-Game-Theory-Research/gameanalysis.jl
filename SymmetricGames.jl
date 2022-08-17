@@ -87,15 +87,15 @@ function PayoffArrays(num_players, num_actions, payoff_generator)
                                         for a in 1:num_actions])
     multinomial(worst_profile...) # throw the error now rather than in deviation_payoffs()
     num_configs = multinomial(num_players, num_actions-1)
-    config_table = Array{Int64}(undef, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
+    config_table = Array{Int64}(undef, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
     min_payoff = Inf
     max_payoff = -Inf
     for (c,config) in enumerate(CwR(1:num_actions, num_players))
         prof = Array{SafeInt64}(counts(config, 1:num_actions))
-        config_table[c,:] = prof
+        config_table[:,c] .= prof
         payoffs = payoff_generator(prof)
-        payoff_table[c,:] = payoffs
+        payoff_table[:,c] .= payoffs
         min_payoff = min(minimum(payoffs[prof .> 0]), min_payoff)
         max_payoff = max(maximum(payoffs[prof .> 0]), max_payoff)
     end
@@ -105,17 +105,16 @@ function PayoffArrays(num_players, num_actions, payoff_generator)
 end
 
 function deviation_payoff(game::PayoffArrays, mixture::AbstractVector, action::Integer)
-    payoff = 0
-    dev_configs = copy(game.config_table)
-    nonzero = dev_configs[:,action] .> 0
-    dev_configs[nonzero,action] .-= 1
-    @reduce probs[c] := prod(a) mixture[a].^dev_configs[c,a]
-    num_configs = size(dev_configs, 1)
+    nonzero = game.config_table[action,:] .> 0
+    dev_configs = game.config_table[:,nonzero]
+    dev_configs[action,:] .-= 1
+    @reduce probs[c] := prod(a) mixture[a]^dev_configs[a,c]
+    num_configs = size(dev_configs, 2)
     repeats = zeros(num_configs)
     for c in 1:num_configs
-        repeats[c] = multinomial(dev_configs[c,:]...)
+        repeats[c] = multinomial(dev_configs[:,c]...)
     end
-    return sum(probs .* repeats .* game.payoff_table[:,action])
+    return sum(probs .* repeats .* game.payoff_table[action,nonzero])
 end
 
 
@@ -132,23 +131,23 @@ end
 
 function RepeatsTable(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players, num_actions-1)
-    config_table = Array{Int64}(undef, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
-    repeat_table = zeros(Int64, num_configs, num_actions)
+    config_table = Array{Int64}(undef, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
+    repeat_table = zeros(Int64, num_actions, num_configs)
     min_payoff = Inf
     max_payoff = -Inf
     for (c,config) in enumerate(CwR(1:num_actions, num_players))
         prof = Array{SafeInt64}(counts(config, 1:num_actions))
-        config_table[c,:] = prof
+        config_table[:,c] = prof
         for a in 1:num_actions
             if prof[a] > 0
                 prof[a] -= 1
-                repeat_table[c,a] = multinomial(prof...)
+                repeat_table[a,c] = multinomial(prof...)
                 prof[a] += 1
             end
         end
         payoffs = payoff_generator(prof)
-        payoff_table[c,:] = payoffs
+        payoff_table[:,c] = payoffs
         min_payoff = min(minimum(payoffs[prof .> 0]), min_payoff)
         max_payoff = max(maximum(payoffs[prof .> 0]), max_payoff)
     end
@@ -159,9 +158,9 @@ end
 
 function deviation_payoffs(game::RepeatsTable, mixture::AbstractVector)
     mixture = mixture .+ eps(0.0f0)
-    @reduce config_probs[c] := prod(a) mixture[a] ^ (game.config_table[c,a])
-    @cast weights[c,a] := config_probs[c] * game.repeat_table[c,a] / mixture[a]
-    @reduce dev_pays[a] := sum(c) game.payoff_table[c,a] * weights[c,a]
+    @reduce config_probs[c] := prod(a) mixture[a] ^ (game.config_table[a,c])
+    @cast weights[a,c] := config_probs[c] * game.repeat_table[a,c] / mixture[a]
+    @reduce dev_pays[a] := sum(c) game.payoff_table[a,c] * weights[a,c]
     return dev_pays
 end
 
@@ -179,14 +178,14 @@ end
 
 function DeviationProfiles(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = Array{Int64}(undef, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
+    config_table = Array{Int64}(undef, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
     repeat_table = Array{SafeInt64}(undef, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = Array{SafeInt64}(counts(config, 1:num_actions))
-        config_table[c,:] = prof
+        config_table[:,c] = prof
         repeat_table[c] = multinomial(prof...)
-        payoff_table[c,:] = payoff_generator(prof)
+        payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
     payoff_table = normalize(payoff_table, offset, scale)
@@ -194,8 +193,8 @@ function DeviationProfiles(num_players, num_actions, payoff_generator)
 end
 
 function deviation_payoffs(game::DeviationProfiles, mixture::AbstractVector)
-    @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[c,a]
-    @reduce dev_pays[a] := sum(c) game.payoff_table[c,a] * config_probs[c] * game.repeat_table[c]
+    @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[a,c]
+    @reduce dev_pays[a] := sum(c) game.payoff_table[a,c] * config_probs[c] * game.repeat_table[c]
     return dev_pays
 end
 
@@ -211,14 +210,14 @@ end
 
 function WeightedPayoffs(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = Array{Int64}(undef, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
-    repeat_table = Array{SafeInt64}(undef, num_configs)
+    config_table = Array{Int64}(undef, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef,  num_actions, num_configs)
+    repeat_table = Array{SafeInt64}(undef, 1, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = Array{SafeInt64}(counts(config, 1:num_actions))
-        config_table[c,:] = prof
+        config_table[:,c] = prof
         repeat_table[c] = multinomial(prof...)
-        payoff_table[c,:] = payoff_generator(prof)
+        payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
     payoff_table = normalize(payoff_table, offset, scale) .* repeat_table
@@ -226,8 +225,8 @@ function WeightedPayoffs(num_players, num_actions, payoff_generator)
 end
 
 function deviation_payoffs(game::WeightedPayoffs, mixture::AbstractVector)
-    @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[c,a]
-    @reduce dev_pays[a] := sum(c) game.payoff_table[c,a] * config_probs[c]
+    @reduce config_probs[c] := prod(a) mixture[a] ^ game.config_table[a,c]
+    @reduce dev_pays[a] := sum(c) game.payoff_table[a,c] * config_probs[c]
     return dev_pays
 end
 
@@ -244,14 +243,14 @@ end
 
 function LogProbabilities(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = Array{Int64}(undef, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
-    repeat_table = Array{Float64}(undef, num_configs)
+    config_table = Array{Int64}(undef, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
+    repeat_table = Array{Float64}(undef, 1, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = counts(config, 1:num_actions)
-        config_table[c,:] = prof
+        config_table[:,c] = prof
         repeat_table[c] = logmultinomial(prof...)
-        payoff_table[c,:] = payoff_generator(prof)
+        payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
     payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
@@ -260,33 +259,33 @@ end
 
 function deviation_payoffs(game::LogProbabilities, mixture::AbstractVector)
     log_mixture = log.(mixture .+ eps(0e0))
-    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[c,a]
-    @reduce dev_pays[a] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c])
+    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[a,c]
+    @reduce dev_pays[a] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[c])
     return dev_pays
 end
 
 function deviation_payoffs(game::LogProbabilities, mixtures::AbstractMatrix)
     log_mixtures = log.(mixtures .+ eps(0e0))
-    @reduce log_config_probs[c,m] := sum(a) log_mixtures[a,m] * game.config_table[c,a]
-    @reduce dev_pays[a,m] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c,m])
+    @reduce log_config_probs[m,c] := sum(a) log_mixtures[a,m] * game.config_table[a,c]
+    @reduce dev_pays[a,m] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[m,c])
     return dev_pays
 end
 
 function deviation_derivatives(game::LogProbabilities, mixture::AbstractVector)
     mixture = mixture .+ 1e-200
     log_mixture = log.(mixture)
-    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[c,a]
-    @cast deriv_configs[c,a] := game.config_table[c,a] / (mixture[a])
-    @reduce dev_jac[a,s] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c]) * deriv_configs[c,s]
+    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[a,c]
+    @cast deriv_configs[a,c] := game.config_table[a,c] / (mixture[a])
+    @reduce dev_jac[a,s] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[c]) * deriv_configs[s,c]
     return dev_jac
 end
 
 function deviation_derivatives(game::LogProbabilities, mixtures::AbstractMatrix)
     mixtures = mixtures .+ 1e-200
     log_mixtures = log.(mixtures)
-    @reduce log_config_probs[c,m] := sum(a) log_mixtures[a,m] * game.config_table[c,a]
-    @cast deriv_configs[c,a,m] := game.config_table[c,a] / (mixtures[a,m])
-    @reduce dev_jac[a,s,m] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c,m]) * deriv_configs[c,s,m]
+    @reduce log_config_probs[m,c] := sum(a) log_mixtures[a,m] * game.config_table[a,c]
+    @cast deriv_configs[a,m,c] := game.config_table[a,c] / (mixtures[a,m])
+    @reduce dev_jac[a,s,m] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[m,c]) * deriv_configs[s,m,c]
     return dev_jac
 end
 
@@ -303,14 +302,14 @@ end
 
 function GPUArrays(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = zeros(Float64, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
-    repeat_table = Array{Float64}(undef, num_configs)
+    config_table = zeros(Float64, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
+    repeat_table = Array{Float64}(undef, 1, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = counts(config, 1:num_actions)
-        config_table[c,:] = prof
+        config_table[:,c] = prof
         repeat_table[c] = logmultinomial(prof...)
-        payoff_table[c,:] = payoff_generator(prof)
+        payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
     payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
@@ -319,15 +318,15 @@ end
 
 function deviation_payoffs(game::GPUArrays, mixture::CUDA.CuArray{Float32,1})
     log_mixture = log.(mixture .+ eps(0.0f0))
-    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[c,a]
-    @reduce dev_pays[a] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c])
+    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[a,c]
+    @reduce dev_pays[a] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[c])
     return dev_pays
 end
 
 function deviation_payoffs(game::GPUArrays, mixtures::CUDA.CuArray{Float32,2})
     log_mixtures = log.(mixtures .+ eps(0.0f0))
-    @reduce log_config_probs[c,m] := sum(a) log_mixtures[a,m] * game.config_table[c,a]
-    @reduce dev_pays[a,m] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c,m])
+    @reduce log_config_probs[m,c] := sum(a) log_mixtures[a,m] * game.config_table[a,c]
+    @reduce dev_pays[a,m] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[m,c])
     return Array(dev_pays)
 end
 
@@ -338,18 +337,18 @@ end
 function deviation_derivatives(game::GPUArrays, mixture::CUDA.CuArray{Float32,1})
     mixture = mixture .+ 1e-40
     log_mixture = log.(mixture)
-    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[c,a]
-    @cast deriv_configs[c,a] := game.config_table[c,a] / (mixture[a])
-    @reduce dev_jac[a,s] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c]) * deriv_configs[c,s]
+    @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[a,c]
+    @cast deriv_configs[a,c] := game.config_table[a,c] / (mixture[a])
+    @reduce dev_jac[a,s] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[c]) * deriv_configs[s,c]
     return dev_jac
 end
 
 function deviation_derivatives(game::GPUArrays, mixtures::CUDA.CuArray{Float32,2})
     mixtures = mixtures .+ 1e-40
     log_mixtures = log.(mixtures)
-    @reduce log_config_probs[c,m] := sum(a) log_mixtures[a,m] * game.config_table[c,a]
-    @cast deriv_configs[c,a,m] := game.config_table[c,a] / (mixtures[a,m])
-    @reduce dev_jac[a,s,m] := sum(c) exp(game.payoff_table[c,a] + log_config_probs[c,m]) * deriv_configs[c,s,m]
+    @reduce log_config_probs[m,c] := sum(a) log_mixtures[a,m] * game.config_table[a,c]
+    @cast deriv_configs[a,m,c] := game.config_table[a,c] / (mixtures[a,m])
+    @reduce dev_jac[a,s,m] := sum(c) exp(game.payoff_table[a,c] + log_config_probs[m,c]) * deriv_configs[s,m,c]
     return dev_jac
 end
 
@@ -371,8 +370,8 @@ end
 
 function CPU_32bit(num_players, num_actions, payoff_generator)
     num_configs = multinomial(num_players-1, num_actions-1)
-    config_table = zeros(Float32, num_configs, num_actions)
-    payoff_table = Array{Float64}(undef, num_configs, num_actions)
+    config_table = zeros(Float32, num_actions, num_configs)
+    payoff_table = Array{Float64}(undef, num_actions, num_configs)
     repeat_table = Array{Float64}(undef, num_configs)
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = counts(config, 1:num_actions)
