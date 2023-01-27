@@ -1,0 +1,8 @@
+include("SimplexOperations.jl")
+include("AbstractGames.jl")
+include("SymmetricGames.jl")
+include("ActionGraphGames.jl")
+include("RandomFunctions.jl")
+include("RandomGames.jl")
+include("Nash.jl")
+# include("SimplexPlots.jl")
