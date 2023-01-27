@@ -1,7 +1,6 @@
-using Distributions: Dirichlet
-using StatsBase: counts
-using Combinatorics: multinomial, with_replacement_combinations as CwR
-
+# using Combinatorics: multinomial, with_replacement_combinations as CwR
+# using Distributions: Dirichlet
+# using StatsBase: counts
 using TensorCast
 
 abstract type Game end
