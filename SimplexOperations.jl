@@ -146,3 +146,11 @@ function filter_unique(mixtures::Matrix; max_diff=1e-2)
     end
     return Array(unique[:,1:count])
 end
+
+function num_payoffs(num_players::Integer, num_actions::Integer; dev=true)
+    if dev
+        return exp(logmultinomial(num_players-1, num_actions-1)) * num_actions
+    else
+        return exp(logmultinomial(num_players, num_actions-1)) * num_actions
+    end
+end
