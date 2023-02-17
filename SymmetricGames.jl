@@ -11,14 +11,6 @@ const MINIMUM_PAYOFF = 1e-5
 const F32_EPSILON = eps(1f-20)
 const F64_EPSILON = eps(1e-40)
 
-function num_payoffs(num_players::Integer, num_actions::Integer; dev=true)
-    if dev
-        return exp(logmultinomial(num_players-1, num_actions-1)) * num_actions
-    else
-        return exp(logmultinomial(num_players, num_actions-1)) * num_actions
-    end
-end
-
 struct SymmetricGame
     num_players::Integer
     num_actions::Integer
