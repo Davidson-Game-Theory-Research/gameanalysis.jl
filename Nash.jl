@@ -1,8 +1,5 @@
 using EllipsisNotation
 
-include("AbstractGames.jl")
-include("SimplexOperations.jl")
-
 function replicator_dynamics(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, offset::Real=0)
     for i in 1:iters
         mix = simplex_normalize(mix .* (deviation_payoffs(game, mix) .- offset))
