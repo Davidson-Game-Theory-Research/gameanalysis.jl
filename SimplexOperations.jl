@@ -8,13 +8,18 @@ function uniform_mixture(num_actions::Integer)
     ones(num_actions) / num_actions
 end
 
-function random_mixtures(num_actions::Integer, num_mixtures, α=1)
+function random_mixtures(num_actions::Integer, num_mixtures, α=1; GPU=false)
     if α isa Array
         distr = Dirichlet(α)
     else
         distr = Dirichlet(num_actions, α)
     end
-    rand(distr, num_mixtures)
+    mixtures = rand(distr, num_mixtures)
+    if GPU
+        return CUDA.CuArray{Float32,2}(mixtures)
+    else
+        return mixtures
+    end
 end
 
 function num_profiles(num_players::Integer, num_actions::Integer)

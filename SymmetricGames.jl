@@ -1,7 +1,7 @@
 using Combinatorics: multinomial, with_replacement_combinations as CwR
 using StatsBase: counts
 
-using TensorCast: @cast, @reduce
+using TensorCast
 import CUDA
 CUDA.allowscalar(false)
 
