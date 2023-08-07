@@ -42,6 +42,14 @@ function deviation_payoffs(game::SymBAGG, mixtures::Matrix)
     return dev_pays
 end
 
+function deviation_derivatives(game::SymBAGG, mixture::AbstractVector)
+    error("Unimplemented: TODO!")
+end
+
+function deviation_derivatives(game::SymmetricGame, mixtures::AbstractMatrix)
+    error("Unimplemented: TODO!")
+end
+
 function to_sym_game(game::SymBAGG; GPU=false)
     payoff_generator = prof -> pure_payoffs(game, prof)
     SymmetricGame(game.num_players, game.num_actions, payoff_generator; GPU=GPU)
