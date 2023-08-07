@@ -11,7 +11,9 @@ const MINIMUM_PAYOFF = 1e-5
 const F32_EPSILON = eps(1f-20)
 const F64_EPSILON = eps(1e-40)
 
-struct SymmetricGame
+abstract type AbstractSymGame end
+
+struct SymmetricGame <: AbstractSymGame
     num_players::Integer
     num_actions::Integer
     config_table::AbstractMatrix
@@ -56,12 +58,16 @@ function set_scale(min_payoff, max_payoff)
     return (offset, scale)
 end
 
-function normalize(payoffs::VecOrMat, offset::Real, scale::Real)
+function normalize(payoffs::AbstractVecOrMat, offset::Real, scale::Real)
     return scale .* (payoffs .+ offset)
 end
 
-function denormalize(game::SymmetricGame, payoffs::AbstractVecOrMat)
-    return payoffs ./ game.scale .- game.offset
+function denormalize(payoffs::AbstractVecOrMat, offset::Real, scale::Real)
+    return (payoffs ./ scale) .- offset
+end
+
+function pure_payoffs(game::SymmetricGame, profile)
+    error("Unimplemented! Requires: ranking algorithm for combinations-with-replacement.")
 end
 
 function deviation_payoffs(game::SymmetricGame, mixture::AbstractVector)
@@ -96,12 +102,12 @@ function deviation_derivatives(game::SymmetricGame, mixtures::AbstractMatrix)
     return dev_jac
 end
 
-function deviation_gains(game::SymmetricGame, mix::AbstractVecOrMat)
+function deviation_gains(game::AbstractSymGame, mix::AbstractVecOrMat)
     dev_pays = deviation_payoffs(game, mix)
     dev_pays .- sum(dev_pays .* mix, dims=1)
 end
 
-function gain_gradients(game::SymmetricGame, mixture::AbstractVector)
+function gain_gradients(game::AbstractSymGame, mixture::AbstractVector)
     dev_pays = deviation_payoffs(game, mixture)
     mixture_EV = mixture' * dev_pays
     dev_jac = deviation_derivatives(game, mixture)
@@ -111,7 +117,7 @@ function gain_gradients(game::SymmetricGame, mixture::AbstractVector)
     return dropdims(sum(gain_jac, dims=1), dims=1)
 end
 
-function gain_gradients(game::SymmetricGame, mixtures::AbstractMatrix)
+function gain_gradients(game::AbstractSymGame, mixtures::AbstractMatrix)
     dev_pays = deviation_payoffs(game, mixtures)
     @reduce mixture_expectations[m] := sum(a) mixtures[a,m] * dev_pays[a,m]
     dev_jac = deviation_derivatives(game, mixtures)
@@ -124,30 +130,30 @@ function gain_gradients(game::SymmetricGame, mixtures::AbstractMatrix)
     return dropdims(sum(gain_jac, dims=2), dims=2)
 end
 
-function regret(game::SymmetricGame, mixture::AbstractVector)
+function regret(game::AbstractSymGame, mixture::AbstractVector)
     maximum(deviation_gains(game, mixture))
 end
 
-function regret(game::SymmetricGame, mixtures::AbstractMatrix)
+function regret(game::AbstractSymGame, mixtures::AbstractMatrix)
     dropdims(maximum(deviation_gains(game, mixtures), dims=1), dims=1)
 end
 
 # Returns a boolean vector (or matrix if given several mixtures)
 # indicating which strategies are best-responses.
-function best_responses(game::SymmetricGame, mix::AbstractVecOrMat; atol=eps(0e0))
+function best_responses(game::AbstractSymGame, mix::AbstractVecOrMat; atol=eps(0e0))
     dev_pays = deviation_payoffs(game, mix)
     return isapprox.(dev_pays, maximum(dev_pays, dims=1), atol=atol)
 end
 
 # The classic function whose fixed-point is Nash.
 # For use in Scarf's simplicial subdivision algrotihm.
-function better_response(game::SymmetricGame, mix::AbstractVecOrMat; scale_factor::Real=1)
+function better_response(game::AbstractSymGame, mix::AbstractVecOrMat; scale_factor::Real=1)
     gains = max.(0,deviation_gains(game, mix)) .* scale_factor
     return (mix .+ gains) ./ (1 .+ sum(gains, dims=1))
 end
 
 # throw out mixtures with regret greater than threshold
-function filter_regrets(game::SymmetricGame, mixtures::AbstractMatrix; threshold=1e-3, sorted=true)
+function filter_regrets(game::AbstractSymGame, mixtures::AbstractMatrix; threshold=1e-3, sorted=true)
     mixture_regrets = regret(game, mixtures)
     below_threshold = mixture_regrets .< threshold
     mixtures = mixtures[:,below_threshold]

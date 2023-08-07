@@ -1,13 +1,13 @@
 using EllipsisNotation
 
-function replicator_dynamics(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, offset::Real=0)
+function replicator_dynamics(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, offset::Real=0)
     for i in 1:iters
         mix = simplex_normalize(mix .* (deviation_payoffs(game, mix) .- offset))
     end
     return mix
 end
 
-function logged_replicator_dynamics(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, offset::Real=0)
+function logged_replicator_dynamics(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, offset::Real=0)
     trace = Array{Float64,ndims(mix)+1}(undef, size(mix)..., iters+1)
     for i in 1:iters
         trace[..,i] .= mix
@@ -17,7 +17,7 @@ function logged_replicator_dynamics(game::SymmetricGame, mix::AbstractVecOrMat; 
     return trace
 end
 
-function gain_descent(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
+function gain_descent(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
     if step_size isa Real
         step_size = [step_size for i in 1:iters]
     end
@@ -27,7 +27,7 @@ function gain_descent(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer
     return mix
 end
 
-function logged_gain_descent(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
+function logged_gain_descent(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
     if step_size isa Real
         step_size = [step_size for i in 1:iters]
     end
@@ -40,7 +40,7 @@ function logged_gain_descent(game::SymmetricGame, mix::AbstractVecOrMat; iters::
     return trace
 end
 
-function fictitious_play(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, initial_weight::Real=100)
+function fictitious_play(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, initial_weight::Real=100)
     counts = mix .* initial_weight
     for i in 1:iters
         counts[best_responses(game, mix)] .+= 1
@@ -49,7 +49,7 @@ function fictitious_play(game::SymmetricGame, mix::AbstractVecOrMat; iters::Inte
     return mix
 end
 
-function logged_fictitious_play(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, initial_weight::Real=100)
+function logged_fictitious_play(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, initial_weight::Real=100)
     trace = Array{Float64,ndims(mix)+1}(undef, size(mix)..., iters+1)
     trace[..,1] .= mix
     counts = mix .* initial_weight
@@ -61,7 +61,7 @@ function logged_fictitious_play(game::SymmetricGame, mix::AbstractVecOrMat; iter
     return trace
 end
 
-function iterated_better_response(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
+function iterated_better_response(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
     if step_size isa Real
         step_size = [step_size for i in 1:iters]
     end
@@ -71,7 +71,7 @@ function iterated_better_response(game::SymmetricGame, mix::AbstractVecOrMat; it
     return mix
 end
 
-function logged_iterated_better_response(game::SymmetricGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
+function logged_iterated_better_response(game::AbstractSymGame, mix::AbstractVecOrMat; iters::Integer=1000, step_size::Union{Real,AbstractVector}=1e-6)
     if step_size isa Real
         step_size = [step_size for i in 1:iters]
     end
@@ -84,7 +84,7 @@ function logged_iterated_better_response(game::SymmetricGame, mix::AbstractVecOr
     return trace
 end
 
-function batch_nash(nash_func::Function, game::SymmetricGame, mixtures::AbstractMatrix, batch_size::Integer; kwargs...)
+function batch_nash(nash_func::Function, game::AbstractSymGame, mixtures::AbstractMatrix, batch_size::Integer; kwargs...)
     eq_candidates = copy(mixtures)
     num_mixtures = size(mixtures, 2)
     for i in 1:ceil(Int64, num_mixtures ÷ batch_size)

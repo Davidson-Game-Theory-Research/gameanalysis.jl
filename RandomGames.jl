@@ -56,24 +56,36 @@ function gaussian_mixture_game(num_players, num_actions, num_gaussians; scale_ra
     return GPUArrays(num_players, num_actions, payoffs)
 end
 
-function add_games(g1::SymmetricGame, g2::SymmetricGame; T::DataType=GPUArrays)
+function add_games(g1::AbstractSymGame, g2::AbstractSymGame; GPU=false, g1_weight::Real=1, g2_weight=1)
     @assert g1.num_players == g2.num_players
     @assert g1.num_actions == g2.num_actions
-    return T(g1.num_players, g1.num_actions, s⃗ -> g1.pure_payoffs(s⃗) .+ g2.pure_payoffs(s⃗))
+    payoff_generator = prof -> g1_weight .* pure_payoffs(g1, prof) .+
+                               g2_weight .* pure_payoffs(g2, prof)
+    return SymmetricGame(g1.num_players, g1.num_actions, payoff_generator; GPU=GPU)
 end
 
-function add_games(g1::GPUArrays, g2::GPUArrays; g2_weight::Real=1)
+function add_games(g1::SymmetricGame, g2::SymmetricGame; GPU=false, g1_weight::Real=1, g2_weight::Real=1)
     @assert g1.num_players == g2.num_players
     @assert g1.num_actions == g2.num_actions
+    num_players = g1.num_players
+    num_actions = g1.num_actions
     num_configs = size(g1.config_table,1)
     repeat_table = Array{Float64}(undef, num_configs)
     config_table = Array(g1.config_table)
     for c in 1:num_configs
         repeat_table[c] = logmultinomial(config_table[c,:]...)
     end
-    payoff_table = denormalize(g1, exp.(Array(g1.payoff_table) .- repeat_table))
-    payoff_table .+= denormalize(g2, exp.(Array(g2.payoff_table) .- repeat_table)) .* g2_weight
+    g1_payoffs = exp.(Array(g1.payoff_table) .- repeat_table)
+    g2_payoffs = exp.(Array(g2.payoff_table) .- repeat_table)
+    payoff_table = denormalize(g1_payoffs, g1.offset, g1.scale) .* g1_weight
+    payoff_table .+= denormalize(g2_payoffs, g2.offset, g2.scale) .* g2_weight
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
     payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
-    GPUArrays(g1.num_players, g1.num_actions, config_table, payoff_table, offset, scale)
+    if GPU
+        payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
+        ε = F32_EPSILON
+    else
+        ε = F64_EPSILON
+    end
+    SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε)
 end
