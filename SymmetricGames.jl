@@ -1,9 +1,8 @@
-using SaferIntegers: SafeInt64
 using Combinatorics: multinomial, with_replacement_combinations as CwR
 using StatsBase: counts
 
-using TensorCast
-using CUDA
+using TensorCast: @cast, @reduce
+import CUDA
 CUDA.allowscalar(false)
 
 const MAXIMUM_PAYOFF = 1e5
@@ -39,8 +38,16 @@ function SymmetricGame(num_players, num_actions, payoff_generator; GPU=false)
     if GPU
         config_table = CUDA.CuArray{Float32,2}(config_table)
         payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
+        num_players = Int32(num_players)
+        num_actions = Int32(num_actions)
+        offset = Float32(offset)
+        scale = Float32(scale)
         ε = F32_EPSILON
     else
+        num_players = Int64(num_players)
+        num_actions = Int64(num_actions)
+        offset = Float64(offset)
+        scale = Float64(scale)
         ε = F64_EPSILON
     end
     SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε)

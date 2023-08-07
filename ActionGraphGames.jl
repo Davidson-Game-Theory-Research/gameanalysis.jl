@@ -1,4 +1,4 @@
-using TensorCast
+using TensorCast: @cast
 
 struct SymBAGG <: AbstractSymGame
     num_players::Int64

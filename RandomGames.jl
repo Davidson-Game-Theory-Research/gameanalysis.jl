@@ -29,7 +29,8 @@ function additive_sin_game(num_players, num_actions, num_functions; edge_prob=0.
 end
 
 function gaussian_mixture_game(num_players, num_actions, num_gaussians; scale_range=[-1e4,1e4],
-                               scale_beta_params=[1;1], corr_strength=1, encourage_mixed=true)
+                               scale_beta_params=[1;1], corr_strength=1, encourage_mixed=true,
+                               GPU=true)
     gaussian_params = Dict(
         :mean_scale=>num_players,
         :var_scale=>num_players,
@@ -53,7 +54,7 @@ function gaussian_mixture_game(num_players, num_actions, num_gaussians; scale_ra
         end
     end
     payoffs(config) = [scales[a,:]' * [N(config) for N in gaussians[a]] for a in 1:num_actions]
-    return GPUArrays(num_players, num_actions, payoffs)
+    return SymmetricGame(num_players, num_actions, payoffs; GPU=GPU)
 end
 
 function add_games(g1::AbstractSymGame, g2::AbstractSymGame; GPU=false, g1_weight::Real=1, g2_weight=1)
