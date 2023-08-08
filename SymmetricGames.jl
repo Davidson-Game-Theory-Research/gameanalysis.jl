@@ -53,12 +53,12 @@ function SymmetricGame(num_players, num_actions, payoff_generator; GPU=false)
     SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε)
 end
 
-function set_scale(min_payoff, max_payoff)
-    scale = (MAXIMUM_PAYOFF - MINIMUM_PAYOFF) / (max_payoff - min_payoff)
+function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
+    scale = (ub - lb) / (max_payoff - min_payoff)
     if !isfinite(scale)
         scale = 1
     end
-    offset = MINIMUM_PAYOFF / scale - min_payoff
+    offset = lb / scale - min_payoff
     if !isfinite(offset)
         offset = 0
     end
