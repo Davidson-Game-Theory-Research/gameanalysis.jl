@@ -1,4 +1,4 @@
-using Distributions: Dirichlet
+using Distributions: Dirichlet, Multinomial
 using Combinatorics: multinomial, with_replacement_combinations as CwR
 using StatsBase: counts
 
@@ -8,7 +8,7 @@ function uniform_mixture(num_actions::Integer)
     ones(num_actions) / num_actions
 end
 
-function random_mixtures(num_actions::Integer, num_mixtures, α=1; GPU=false)
+function random_mixtures(num_actions::Integer, num_mixtures::Integer, α=1; GPU=false)
     if α isa Array
         distr = Dirichlet(α)
     else
@@ -20,6 +20,18 @@ function random_mixtures(num_actions::Integer, num_mixtures, α=1; GPU=false)
     else
         return mixtures
     end
+end
+
+function sample_profile(num_players::Integer, mixture::AbstractVector)
+    return rand(Multinomial(num_players, mixture))
+end
+
+function sample_profiles(num_players::Integer, mixtures::AbstractMatrix)
+    profiles = Matrix{Int64}(undef, size(mixtures))
+    for m in axes(mixtures,2)
+        profiles[:,m] .= sample_profile(num_players, mixtures[:,m])
+    end
+    return profiles
 end
 
 function num_profiles(num_players::Integer, num_actions::Integer)
