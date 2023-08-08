@@ -111,7 +111,7 @@ end
 
 function deviation_gains(game::AbstractSymGame, mix::AbstractVecOrMat)
     dev_pays = deviation_payoffs(game, mix)
-    dev_pays .- sum(dev_pays .* mix, dims=1)
+    max.(dev_pays .- sum(dev_pays .* mix, dims=1), 0)
 end
 
 function gain_gradients(game::AbstractSymGame, mixture::AbstractVector)
