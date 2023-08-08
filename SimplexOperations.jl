@@ -22,10 +22,12 @@ function random_mixtures(num_actions::Integer, num_mixtures::Integer, α=1; GPU=
     end
 end
 
+# samples one random profile from a given mixture
 function sample_profile(num_players::Integer, mixture::AbstractVector)
     return rand(Multinomial(num_players, mixture))
 end
 
+# samples one random profile from each of the given mixtures
 function sample_profiles(num_players::Integer, mixtures::AbstractMatrix)
     profiles = Matrix{Int64}(undef, size(mixtures))
     for m in axes(mixtures,2)
