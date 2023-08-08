@@ -11,7 +11,7 @@ struct SymBAGG <: AbstractSymGame
 end
 
 function SymBAGG(num_players, num_actions, functions, function_inputs, action_weights)
-    repetitions = logmultinomial.(num_players-1:-1:0, 0:num_players-1)
+    repetitions = logmultinomial.(0:num_players-1, num_players-1:-1:0) # 0...P-1 in, P-1...0 out
     function_tables = [f(c) for f in functions, c in 0:num_players-1]
     SymBAGG(num_players, num_actions, length(functions), repetitions,
             function_inputs, action_weights, function_tables)
@@ -19,7 +19,7 @@ end
 
 function pure_payoffs(game::SymBAGG, profile)
     inputs = game.function_inputs * profile
-    outputs = [game.function_tables[f,c] for (f,c) in zip(1:game.num_functions, inputs .+ 1)]
+    outputs = [game.function_tables[f,c] for (f,c) in zip(1:game.num_functions, inputs .+ 1)] # +1 because of 1-indexing
     return game.action_weights * outputs
 end
 
