@@ -17,13 +17,22 @@ function SymBAGG(num_players, num_actions, functions, function_inputs, action_we
             function_inputs, action_weights, function_tables)
 end
 
-function pure_payoffs(game::SymBAGG, profile)
+function pure_payoffs(game::SymBAGG, profile::AbstractVector)
     inputs = game.function_inputs * profile
     outputs = [game.function_tables[f,c] for (f,c) in zip(1:game.num_functions, inputs .+ 1)] # +1 because of 1-indexing
     return game.action_weights * outputs
 end
 
-function deviation_payoffs(game::SymBAGG, mixture::Vector)
+# This could be vectorized...
+function pure_payoffs(game::SymBAGG, profiles::AbstractMatrix)
+    payoffs = Array{Float64,2}(undef, size(profiles)...)
+    for p in axes(profiles,2)
+        payoffs[:,p] .= pure_payoffs(game, profiles[:,p])
+    end
+    return payoffs
+end
+
+function deviation_payoffs(game::SymBAGG, mixture::AbstractVector)
     in_probs = min.(game.function_inputs * mixture .+ eps(0.0), 1)
     out_probs = 1 .- in_probs .+ eps(0.0)
     in_counts = collect(0:game.num_players - 1)
@@ -34,9 +43,9 @@ function deviation_payoffs(game::SymBAGG, mixture::Vector)
 end
 
 # This could be vectorized...
-function deviation_payoffs(game::SymBAGG, mixtures::Matrix)
+function deviation_payoffs(game::SymBAGG, mixtures::AbstractMatrix)
     dev_pays = Array{Float64,2}(undef, size(mixtures)...)
-    for m in 1:size(mixtures,2)
+    for m in axes(mixtures,2)
         dev_pays[:,m] .= deviation_payoffs(game, mixtures[:,m])
     end
     return dev_pays
