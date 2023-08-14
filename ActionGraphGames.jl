@@ -8,13 +8,14 @@ struct SymBAGG <: AbstractSymGame
     function_inputs::Array{Bool,2} # num_functions X num_actions
     action_weights::Array{Float64,2} # num_actions X num_functions
     function_tables::Array{Float64,2}# num_functions X num_players
+    GPU::Bool
 end
 
 function SymBAGG(num_players, num_actions, functions, function_inputs, action_weights)
     repetitions = logmultinomial.(0:num_players-1, num_players-1:-1:0) # 0...P-1 in, P-1...0 out
     function_tables = [f(c) for f in functions, c in 0:num_players-1]
     SymBAGG(num_players, num_actions, length(functions), repetitions,
-            function_inputs, action_weights, function_tables)
+            function_inputs, action_weights, function_tables, false)
 end
 
 function pure_payoffs(game::SymBAGG, profile::AbstractVector)
@@ -58,9 +59,3 @@ end
 function deviation_derivatives(game::SymmetricGame, mixtures::AbstractMatrix)
     error("Unimplemented: TODO!")
 end
-
-function to_sym_game(game::SymBAGG; GPU=false)
-    payoff_generator = prof -> pure_payoffs(game, prof)
-    SymmetricGame(game.num_players, game.num_actions, payoff_generator; GPU=GPU)
-end
-

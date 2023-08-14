@@ -20,9 +20,11 @@ struct SymmetricGame <: AbstractSymGame
     offset::AbstractFloat
     scale::AbstractFloat
     ε::AbstractFloat
+    GPU::Bool
 end
 
-function SymmetricGame(num_players, num_actions, payoff_generator; GPU=false)
+function SymmetricGame(num_players, num_actions, payoff_generator;
+                    GPU=false, ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     num_configs = multinomial(num_players-1, num_actions-1)
     config_table = zeros(Float64, num_actions, num_configs)
     payoff_table = Array{Float64}(undef, num_actions, num_configs)
@@ -33,7 +35,7 @@ function SymmetricGame(num_players, num_actions, payoff_generator; GPU=false)
         repeat_table[c] = logmultinomial(prof...)
         payoff_table[:,c] = payoff_generator(prof)
     end
-    (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
+    (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table); ub=ub, lb=lb)
     payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
     if GPU
         config_table = CUDA.CuArray{Float32,2}(config_table)
@@ -50,7 +52,12 @@ function SymmetricGame(num_players, num_actions, payoff_generator; GPU=false)
         scale = Float64(scale)
         ε = F64_EPSILON
     end
-    SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε)
+    SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε, GPU)
+end
+
+function SymmetricGame(game::AbstractSymGame; GPU=false, ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
+    payoff_generator = prof -> pure_payoffs(game, prof)
+    SymmetricGame(game.num_players, game.num_actions, payoff_generator; GPU=GPU, ub=ub, lb=lb)
 end
 
 function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
@@ -65,12 +72,20 @@ function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     return (offset, scale)
 end
 
-function normalize(payoffs::AbstractVecOrMat, offset::Real, scale::Real)
+function normalize(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return scale .* (payoffs .+ offset)
 end
 
-function denormalize(payoffs::AbstractVecOrMat, offset::Real, scale::Real)
+function normalize(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
+    return game.scale .* (payoffs .+ game.offset)
+end
+
+function denormalize(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return (payoffs ./ scale) .- offset
+end
+
+function denormalize(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
+    return (payoffs ./ game.scale) .- game.offset
 end
 
 function pure_payoffs(game::SymmetricGame, profile)

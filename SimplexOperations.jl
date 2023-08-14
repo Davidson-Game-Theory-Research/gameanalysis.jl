@@ -138,7 +138,7 @@ end
 # Normalize a distribution by flooring at zero and then dividing by the sum.
 function simplex_normalize(y⃗)
     y⃗ = y⃗ .- min.(minimum(y⃗, dims=1), 0)
-    y⃗ ./ sum(y⃗, dims=1)
+    y⃗ ./ (sum(y⃗, dims=1) .+ eps(0.0))
 end
 
 # Filter a collection of mixed strategies to remove approximate duplicates.
