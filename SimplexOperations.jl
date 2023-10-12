@@ -36,6 +36,7 @@ function sample_profiles(num_players::Integer, mixtures::AbstractMatrix)
     return profiles
 end
 
+# number of opponent-profiles in a game with P players and A actions
 function num_profiles(num_players::Integer, num_actions::Integer)
     multinomial(num_players-1, num_actions-1)
 end
