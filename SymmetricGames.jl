@@ -5,8 +5,8 @@ using TensorCast
 import CUDA
 CUDA.allowscalar(false)
 
-const MAXIMUM_PAYOFF = 1e5
-const MINIMUM_PAYOFF = 1e-5
+const MAXIMUM_PAYOFF = 1e5  # all payoffs are standardized to the (MIN,MAX) range
+const MINIMUM_PAYOFF = 1e-5 # to ensure numerical stability and simplify parameter tuning
 const F32_EPSILON = eps(1f-20)
 const F64_EPSILON = eps(1e-40)
 
@@ -15,12 +15,12 @@ abstract type AbstractSymGame end
 struct SymmetricGame <: AbstractSymGame
     num_players::Integer
     num_actions::Integer
-    config_table::AbstractMatrix
-    payoff_table::AbstractMatrix
+    config_table::AbstractMatrix # num_actions X num_configs float array
+    payoff_table::AbstractMatrix # num_actions X num_configs float array
     offset::AbstractFloat
     scale::AbstractFloat
     ε::AbstractFloat
-    GPU::Bool
+    GPU::Bool # flag indicating whether tables are CuArrays
 end
 
 function SymmetricGame(num_players, num_actions, payoff_generator;
@@ -29,14 +29,15 @@ function SymmetricGame(num_players, num_actions, payoff_generator;
     config_table = zeros(Float64, num_actions, num_configs)
     payoff_table = Array{Float64}(undef, num_actions, num_configs)
     repeat_table = Array{Float64}(undef, 1, num_configs)
+    # generate each configuration
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = counts(config, 1:num_actions)
         config_table[:,c] = prof
-        repeat_table[c] = logmultinomial(prof...)
-        payoff_table[:,c] = payoff_generator(prof)
+        repeat_table[c] = logmultinomial(prof...) # store in log-config table
+        payoff_table[:,c] = payoff_generator(prof) # get corresponding payoffs
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table); ub=ub, lb=lb)
-    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table
+    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table # normalize and log-transform payoffs
     if GPU
         config_table = CUDA.CuArray{Float32,2}(config_table)
         payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
@@ -55,11 +56,13 @@ function SymmetricGame(num_players, num_actions, payoff_generator;
     SymmetricGame(num_players, num_actions, config_table, payoff_table, offset, scale, ε, GPU)
 end
 
+# creates a new game using another game as the 'payoff generator'
 function SymmetricGame(game::AbstractSymGame; GPU=false, ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     payoff_generator = prof -> pure_payoffs(game, prof)
     SymmetricGame(game.num_players, game.num_actions, payoff_generator; GPU=GPU, ub=ub, lb=lb)
 end
 
+# finds the affine transformation that scales a game to the standard payoff range
 function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     scale = (ub - lb) / (max_payoff - min_payoff)
     if !isfinite(scale)
@@ -72,6 +75,7 @@ function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     return (offset, scale)
 end
 
+# applies the affine transformation that scales a game to the standard payoff range
 function normalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return scale .* (payoffs .+ offset)
 end
@@ -80,6 +84,7 @@ function normalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, game::Abstract
     return game.scale .* (payoffs .+ game.offset)
 end
 
+# undoes the affine transformation to get back payoffs in a game's original scale
 function denormalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return (payoffs ./ scale) .- offset
 end
@@ -88,10 +93,13 @@ function denormalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, game::Abstra
     return (payoffs ./ game.scale) .- game.offset
 end
 
+# look up a profile in the payoff table
 function pure_payoffs(game::SymmetricGame, profile)
-    error("Unimplemented! Requires: ranking algorithm for combinations-with-replacement.")
+    index = profile_ranking(profile)
+    return game.payoff_table[:,index]
 end
 
+# core method: calculates expected utilities for each action when all opponents play mixture
 function deviation_payoffs(game::SymmetricGame, mixture::AbstractVector)
     log_mixture = log.(mixture .+ game.ε)
     @reduce log_config_probs[c] := sum(a) log_mixture[a] * game.config_table[a,c]
@@ -99,6 +107,7 @@ function deviation_payoffs(game::SymmetricGame, mixture::AbstractVector)
     return dev_pays
 end
 
+# vectorized over an array of mixtures
 function deviation_payoffs(game::SymmetricGame, mixtures::AbstractMatrix)
     log_mixtures = log.(mixtures .+ game.ε)
     @reduce log_config_probs[m,c] := sum(a) log_mixtures[a,m] * game.config_table[a,c]
@@ -106,6 +115,7 @@ function deviation_payoffs(game::SymmetricGame, mixtures::AbstractMatrix)
     return dev_pays
 end
 
+# jacobian matrix of deviation-payoff derivatives
 function deviation_derivatives(game::SymmetricGame, mixture::AbstractVector)
     mixture = mixture .+ game.ε
     log_mixture = log.(mixture)
@@ -115,6 +125,7 @@ function deviation_derivatives(game::SymmetricGame, mixture::AbstractVector)
     return dev_jac
 end
 
+# vectorized over an array of mixtures
 function deviation_derivatives(game::SymmetricGame, mixtures::AbstractMatrix)
     mixtures = mixtures .+ game.ε
     log_mixtures = log.(mixtures)
@@ -124,11 +135,13 @@ function deviation_derivatives(game::SymmetricGame, mixtures::AbstractMatrix)
     return dev_jac
 end
 
+# function whose global minima are Nash equilibria
 function deviation_gains(game::AbstractSymGame, mix::AbstractVecOrMat)
     dev_pays = deviation_payoffs(game, mix)
     max.(dev_pays .- sum(dev_pays .* mix, dims=1), 0)
 end
 
+# derivatives for minimizing deviation_gains
 function gain_gradients(game::AbstractSymGame, mixture::AbstractVector)
     dev_pays = deviation_payoffs(game, mixture)
     mixture_EV = mixture' * dev_pays
@@ -139,6 +152,7 @@ function gain_gradients(game::AbstractSymGame, mixture::AbstractVector)
     return dropdims(sum(gain_jac, dims=1), dims=1)
 end
 
+# vectorized over an array of mixtures
 function gain_gradients(game::AbstractSymGame, mixtures::AbstractMatrix)
     dev_pays = deviation_payoffs(game, mixtures)
     @reduce mixture_expectations[m] := sum(a) mixtures[a,m] * dev_pays[a,m]
@@ -152,10 +166,12 @@ function gain_gradients(game::AbstractSymGame, mixtures::AbstractMatrix)
     return dropdims(sum(gain_jac, dims=2), dims=2)
 end
 
+# maximum any player could gain by deviating
 function regret(game::AbstractSymGame, mixture::AbstractVector)
     maximum(deviation_gains(game, mixture))
 end
 
+# vectorized over an array of mixtures
 function regret(game::AbstractSymGame, mixtures::AbstractMatrix)
     dropdims(maximum(deviation_gains(game, mixtures), dims=1), dims=1)
 end

@@ -4,10 +4,12 @@ using StatsBase: counts
 
 include("LogMultinomial.jl")
 
+# center-point of the num_actions-simplex
 function uniform_mixture(num_actions::Integer)
     ones(num_actions) / num_actions
 end
 
+# draws independent samples from the num_actions-simplex
 function random_mixtures(num_actions::Integer, num_mixtures::Integer, α=1; GPU=false)
     if α isa Array
         distr = Dirichlet(α)
@@ -39,6 +41,21 @@ end
 # number of opponent-profiles in a game with P players and A actions
 function num_profiles(num_players::Integer, num_actions::Integer)
     multinomial(num_players-1, num_actions-1)
+end
+
+# ranking algorithm for combinations with replacement
+# used to determine a profile's index in the configuration table
+function profile_ranking(profile)
+    num_actions = length(profile)
+    num_opponents = sum(profile)
+    preceding_profs = 0
+    for a in 1:num_actions
+        num_opponents -= profile[a]
+        stars = num_opponents - 1
+        bars = num_actions + 1 - a
+        preceding_profs += binomial(stars + bars - 1, stars)
+    end
+    return preceding_profs + 1
 end
 
 # creates a grid of equally spaced points throughout the simplex
