@@ -136,10 +136,11 @@ function simplex_project(M::AbstractMatrix, simplex_sum::Real)
     max.(M .+ λ, 0) .+ (1 - simplex_sum) ./ D
 end
 
-# Normalize a distribution by flooring at zero and then dividing by the sum.
-function simplex_normalize(y⃗)
-    y⃗ = y⃗ .- min.(minimum(y⃗, dims=1), 0)
-    y⃗ ./ (sum(y⃗, dims=1) .+ eps(0.0))
+# Normalize distribution(s) by flooring at zero and then dividing by the sum.
+function simplex_normalize(d::AbstractVecOrMat, ϵ=eps(0.0))
+    d = copy(d)
+    d[d .< ϵ] .= ϵ
+    d ./ sum(d, dims=1)
 end
 
 # Filter a collection of mixed strategies to remove approximate duplicates.

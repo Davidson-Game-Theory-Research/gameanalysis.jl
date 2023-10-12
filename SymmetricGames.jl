@@ -36,7 +36,7 @@ function SymmetricGame(num_players, num_actions, payoff_generator;
         payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table); ub=ub, lb=lb)
-    payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
+    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table
     if GPU
         config_table = CUDA.CuArray{Float32,2}(config_table)
         payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
@@ -72,19 +72,19 @@ function set_scale(min_payoff, max_payoff; ub=MAXIMUM_PAYOFF, lb=MINIMUM_PAYOFF)
     return (offset, scale)
 end
 
-function normalize(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
+function normalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return scale .* (payoffs .+ offset)
 end
 
-function normalize(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
+function normalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
     return game.scale .* (payoffs .+ game.offset)
 end
 
-function denormalize(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
+function denormalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, offset::Real, scale::Real)
     return (payoffs ./ scale) .- offset
 end
 
-function denormalize(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
+function denormalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, game::AbstractSymGame)
     return (payoffs ./ game.scale) .- game.offset
 end
 

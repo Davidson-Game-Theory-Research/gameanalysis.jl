@@ -78,10 +78,10 @@ function add_games(g1::SymmetricGame, g2::SymmetricGame; GPU=false, g1_weight::R
     end
     g1_payoffs = exp.(Array(g1.payoff_table) .- repeat_table)
     g2_payoffs = exp.(Array(g2.payoff_table) .- repeat_table)
-    payoff_table = denormalize(g1_payoffs, g1.offset, g1.scale) .* g1_weight
-    payoff_table .+= denormalize(g2_payoffs, g2.offset, g2.scale) .* g2_weight
+    payoff_table = denormalize_payoffs(g1_payoffs, g1.offset, g1.scale) .* g1_weight
+    payoff_table .+= denormalize_payoffs(g2_payoffs, g2.offset, g2.scale) .* g2_weight
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table))
-    payoff_table = log.(normalize(payoff_table, offset, scale)) .+ repeat_table
+    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table
     if GPU
         payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
         ε = F32_EPSILON
