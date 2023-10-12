@@ -28,16 +28,17 @@ function SymmetricGame(num_players, num_actions, payoff_generator;
     num_configs = multinomial(num_players-1, num_actions-1)
     config_table = zeros(Float64, num_actions, num_configs)
     payoff_table = Array{Float64}(undef, num_actions, num_configs)
-    repeat_table = Array{Float64}(undef, 1, num_configs)
+    repeat_table = Array{Float64}(undef, 1, num_configs) # temporary: used to pre-weight payoffs
     # generate each configuration
     for (c,config) in enumerate(CwR(1:num_actions, num_players-1))
         prof = counts(config, 1:num_actions)
         config_table[:,c] = prof
-        repeat_table[c] = logmultinomial(prof...) # store in log-config table
-        payoff_table[:,c] = payoff_generator(prof) # get corresponding payoffs
+        repeat_table[c] = logmultinomial(prof...)
+        payoff_table[:,c] = payoff_generator(prof)
     end
     (offset, scale) = set_scale(minimum(payoff_table), maximum(payoff_table); ub=ub, lb=lb)
-    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table # normalize and log-transform payoffs
+    # normalize, log-transform, and repetition-weight the payoff table
+    payoff_table = log.(normalize_payoffs(payoff_table, offset, scale)) .+ repeat_table
     if GPU
         config_table = CUDA.CuArray{Float32,2}(config_table)
         payoff_table = CUDA.CuArray{Float32,2}(payoff_table)
@@ -94,9 +95,16 @@ function denormalize_payoffs(payoffs::Union{AbstractVecOrMat,Real}, game::Abstra
 end
 
 # look up a profile in the payoff table
-function pure_payoffs(game::SymmetricGame, profile)
-    index = profile_ranking(profile)
-    return game.payoff_table[:,index]
+function pure_payoffs(game::SymmetricGame, opponent_profile; denormalize=false)
+    index = profile_ranking(opponent_profile)
+    weighted_normalized_log_payoffs = game.payoff_table[:,index]
+    repeats = logmultinomial(opponent_profile...)
+    normalized_payoffs = exp.(weighted_normalized_log_payoffs .- repeats)
+    if denormalize
+        return denormalize_payoffs(normalized_payoffs, game)
+    else
+        return normalized_payoffs
+    end
 end
 
 # core method: calculates expected utilities for each action when all opponents play mixture
